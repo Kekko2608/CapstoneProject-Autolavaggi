@@ -1,0 +1,55 @@
+﻿@using CapstoneProject_Autolavaggi.Models.Auth
+@model RegisterModel 
+
+@{
+    ViewData["Title"] = "Registrazione";
+}
+
+<div class="d-flex justify-content-center align-items-center vh-100">
+    <div class="card p-4 shadow-lg" style="max-width: 500px; width: 100%;">
+        <div class="card-body text-black">
+            <h3 class="text-center mb-4">@ViewData["Title"]</h3>
+
+            <form asp-action="Register" method="post">
+                @Html.AntiForgeryToken()
+                <div class="mb-3">
+                    <label asp-for="Nome" class="form-label"></label>
+                    <input asp-for="Nome" class="form-control" placeholder="Inserisci il tuo nome" />
+                    <span asp-validation-for="Nome" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Email" class="form-label"></label>
+                    <input asp-for="Email" class="form-control" placeholder="Inserisci la tua email" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Password" class="form-label"></label>
+                    <input asp-for="Password" type="password" class="form-control" placeholder="Inserisci la tua password" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="ConfirmPassword" class="form-label"> Conferma password</label>
+                    <input asp-for="ConfirmPassword" type="password" class="form-control" placeholder="Conferma la tua password" />
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label for="Role" class="form-label">Ruolo</label>
+                    <select id="Role" name="roleId" class="form-select">
+                        @foreach (var role in ViewBag.Roles)
+                        {
+                            <option value="@role.Id">@role.Nome</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="d-grid">
+                    <button type="submit" class="btn">Registrati</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

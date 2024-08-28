@@ -12,6 +12,9 @@ namespace CapstoneProject_Autolavaggi.Context
         public virtual DbSet<Recensione> Recensioni { get; set; }
         public virtual DbSet<Servizio> Servizi { get; set; }
         public virtual DbSet<Tipo> Tipi { get; set; }
+        public virtual DbSet<User> User { get; set; }
+        public virtual DbSet<Role> Role { get; set; }
+        public virtual DbSet<UserRole> UserRole { get; set; }
         public virtual DbSet<ServizioPrenotazione> ServiziPrenotazioni { get; set; }
 
         public DataContext(DbContextOptions<DataContext> opt) : base(opt) { }
@@ -34,6 +37,12 @@ namespace CapstoneProject_Autolavaggi.Context
             modelBuilder.Entity<User>(entity =>
             {
                 entity.HasKey(e => e.Id).HasName("PK_Users");
+
+                // Configurazione della relazione con Prenotazione
+                entity.HasMany(u => u.Prenotazioni)
+                      .WithOne(p => p.User)
+                      .HasForeignKey(p => p.UserId)
+                      .OnDelete(DeleteBehavior.Restrict); // Prevenzione di cicli
             });
 
             modelBuilder.Entity<UserRole>(entity =>
@@ -51,8 +60,37 @@ namespace CapstoneProject_Autolavaggi.Context
                     .HasConstraintName("FK_UserRoles_Users");
             });
 
+            modelBuilder.Entity<Prenotazione>(entity =>
+            {
+                entity.HasKey(e => e.Id).HasName("PK_Prenotazioni");
+
+                entity.HasOne(p => p.User)
+                      .WithMany(u => u.Prenotazioni)
+                      .HasForeignKey(p => p.UserId)
+                      .OnDelete(DeleteBehavior.Restrict); // Prevenzione di cicli
+
+                entity.HasOne(p => p.Autolavaggio)
+                      .WithMany(a => a.Prenotazioni)
+                      .HasForeignKey(p => p.AutolavaggioId)
+                      .OnDelete(DeleteBehavior.Restrict); // Prevenzione di cicli
+            });
+
+            modelBuilder.Entity<Autolavaggio>(entity =>
+            {
+                entity.HasKey(e => e.Id).HasName("PK_Autolavaggi");
+
+                // Configurazione della relazione con User (Owner)
+                entity.HasOne(a => a.Owner)
+                      .WithMany() // Se un User può essere proprietario di più autolavaggi
+                      .HasForeignKey(a => a.OwnerId)
+                      .OnDelete(DeleteBehavior.Restrict); // Prevenzione di cicli
+            });
+
+            
+
             OnModelCreatingPartial(modelBuilder);
         }
+
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }

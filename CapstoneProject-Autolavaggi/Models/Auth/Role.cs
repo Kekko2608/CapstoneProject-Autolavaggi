@@ -9,7 +9,7 @@ namespace CapstoneProject_Autolavaggi.Models.Auth
         public int Id { get; set; }
 
         [StringLength(50)]
-        public string Name { get; set; }
+        public string Nome { get; set; }
 
         public virtual ICollection<UserRole> UserRoles { get; set; } = new List<UserRole>();
     }
