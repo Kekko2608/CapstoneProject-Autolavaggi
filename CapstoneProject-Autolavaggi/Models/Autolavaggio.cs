@@ -7,7 +7,7 @@ namespace CapstoneProject_Autolavaggi.Models
     public class Autolavaggio
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public int Idd { get; set; }
         [Required]
         public string Nome { get; set; }
         [Required]
