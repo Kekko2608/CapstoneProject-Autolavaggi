@@ -18,58 +18,65 @@ namespace CapstoneProject_Autolavaggi.Controllers
         [HttpGet]
         public async Task<IActionResult> CreaAutolavaggio()
         {
-            var tipi = await _ctx.Tipi.ToListAsync();
-            var servizi = await _ctx.Servizi.ToListAsync(); 
-            ViewBag.Tipi = tipi;
-            ViewBag.Servizi = servizi;
-
-            var model = new Autolavaggio
+            var viewmodel = new AutolavaggioViewModel
             {
-                ServiziSelezionati = new List<int>()
+                Tipi = await _ctx.Tipi.ToListAsync(),
+                Servizi = await _ctx.Servizi.ToListAsync()
             };
 
-            return View(model);
+
+            return View(viewmodel);
         }
 
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreaAutolavaggio(Autolavaggio autolavaggio, List<int> ServiziSelezionati)
+        public async Task<IActionResult> CreaAutolavaggio(AutolavaggioViewModel model)
         {
             if (ModelState.IsValid)
             {
-                // Aggiungi l'autolavaggio al database
+                var autolavaggio = new Autolavaggio
+                {
+                    Nome = model.Autolavaggio.Nome,
+                    Via = model.Autolavaggio.Via,
+                    Città = model.Autolavaggio.Città,
+                    CAP = model.Autolavaggio.CAP,
+                    Telefono = model.Autolavaggio.Telefono,
+                    Descrizione = model.Autolavaggio.Descrizione,
+                    Immagine = model.Autolavaggio.Immagine,
+                    OrariDescrizione = model.Autolavaggio.OrariDescrizione,
+                    TipoId = model.Autolavaggio.TipoId,
+
+                    Servizi = await _ctx.Servizi
+                        .Where(s => model.SelectedServizi.Contains(s.Id))
+                        .ToListAsync()
+                };
+
                 _ctx.Autolavaggi.Add(autolavaggio);
                 await _ctx.SaveChangesAsync();
-
-                // Associa i servizi selezionati all'autolavaggio
-                if (ServiziSelezionati != null && ServiziSelezionati.Any())
-                {
-                    var servizi = await _ctx.Servizi
-                        .Where(s => ServiziSelezionati.Contains(s.Id))
-                        .ToListAsync();
-
-                    foreach (var servizio in servizi)
-                    {
-                        autolavaggio.Servizi.Add(servizio);
-                    }
-
-                    await _ctx.SaveChangesAsync();
-                }
 
                 return RedirectToAction("Index", "Home");
             }
 
-            // Ricarica i tipi e i servizi per la vista in caso di errore
-            var tipi = await _ctx.Tipi.ToListAsync();
-            ViewBag.Tipi = tipi;
+            model.Servizi = await _ctx.Servizi.ToListAsync();
+            model.Tipi = await _ctx.Tipi.ToListAsync();
 
-            var serviziList = await _ctx.Servizi.ToListAsync();
-            ViewBag.Servizi = serviziList;
 
-            return View(autolavaggio);
+            return View(model);
         }
 
+
+
+        public async Task<IActionResult> GetAllAutolavaggi()
+        {
+            var autolavaggi = await _ctx.Autolavaggi
+                .Include(a => a.Tipo) // Include il tipo se necessario
+                .Include(a => a.Prenotazioni) // Include prenotazioni se necessario
+                .Include(a => a.Recensioni) // Include recensioni se necessario
+                .ToListAsync();
+
+            return View(autolavaggi);
+        }
 
 
 

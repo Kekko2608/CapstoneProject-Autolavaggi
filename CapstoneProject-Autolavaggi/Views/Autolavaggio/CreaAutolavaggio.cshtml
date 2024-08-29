@@ -1,94 +1,91 @@
-﻿@model CapstoneProject_Autolavaggi.Models.Autolavaggio
+﻿@model CapstoneProject_Autolavaggi.Models.AutolavaggioViewModel
 
 @{
-    ViewData["Title"] = "CreaAutolavaggio";
+    ViewData["Title"] = "Crea Autolavaggio";
 }
 
-<h1>Registra il tuo Autolavaggio</h1>
+<h1>@ViewData["Title"]</h1>
 
-<h4>Autolavaggio</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="CreaAutolavaggio" method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Nome" class="control-label"></label>
-                <input asp-for="Nome" class="form-control" />
-                <span asp-validation-for="Nome" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Via" class="control-label"></label>
-                <input asp-for="Via" class="form-control" />
-                <span asp-validation-for="Via" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Città" class="control-label"></label>
-                <input asp-for="Città" class="form-control" />
-                <span asp-validation-for="Città" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CAP" class="control-label"></label>
-                <input asp-for="CAP" class="form-control" />
-                <span asp-validation-for="CAP" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Telefono" class="control-label"></label>
-                <input asp-for="Telefono" class="form-control" />
-                <span asp-validation-for="Telefono" class="text-danger"></span>
-            </div>
-            <div>
-                <label>Tipo:</label>
-                <select asp-for="TipoId" asp-items="@(new SelectList(ViewBag.Tipi, "Id", "Nome"))"></select>
-                <span asp-validation-for="TipoId"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Descrizione" class="control-label"></label>
-                <input asp-for="Descrizione" class="form-control" />
-                <span asp-validation-for="Descrizione" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Immagine" class="control-label"></label>
-                <input asp-for="Immagine" class="form-control" />
-                <span asp-validation-for="Immagine" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label for="Servizi">Seleziona Servizi:</label>
-                <div>
-                    @foreach (var servizio in ViewBag.Servizi)
-                    {
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="ServiziSelezionati" value="@servizio.Id" />
-                            <label class="form-check-label">
-                                @servizio.Nome
-                            </label>
-                        </div>
-                    }
-                </div>
-            </div>
+<form asp-action="CreaAutolavaggio" method="post">
+    @Html.AntiForgeryToken()
 
-            <div class="form-group">
-                <label asp-for="OrariDescrizione">Orari di apertura</label>
-                <textarea asp-for="OrariDescrizione" class="form-control"></textarea>
-                <span asp-validation-for="OrariDescrizione" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="OwnerId" class="control-label"></label>
-                <input asp-for="OwnerId" class="form-control" />
-                <span asp-validation-for="OwnerId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+    <div class="form-group">
+        <label asp-for="Autolavaggio.Nome" class="control-label"></label>
+        <input asp-for="Autolavaggio.Nome" class="form-control" />
+        <span asp-validation-for="Autolavaggio.Nome" class="text-danger"></span>
     </div>
-</div>
+
+    <div class="form-group">
+        <label asp-for="Autolavaggio.Via" class="control-label"></label>
+        <input asp-for="Autolavaggio.Via" class="form-control" />
+        <span asp-validation-for="Autolavaggio.Via" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Autolavaggio.Città" class="control-label"></label>
+        <input asp-for="Autolavaggio.Città" class="form-control" />
+        <span asp-validation-for="Autolavaggio.Città" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Autolavaggio.CAP" class="control-label"></label>
+        <input asp-for="Autolavaggio.CAP" class="form-control" />
+        <span asp-validation-for="Autolavaggio.CAP" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Autolavaggio.Telefono" class="control-label"></label>
+        <input asp-for="Autolavaggio.Telefono" class="form-control" />
+        <span asp-validation-for="Autolavaggio.Telefono" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Autolavaggio.TipoId" class="control-label"></label>
+        <select asp-for="Autolavaggio.TipoId" class="form-control" asp-items="@(new SelectList(Model.Tipi, "Id", "Nome"))">
+            <option value="">Seleziona un tipo</option>
+        </select>
+        <span asp-validation-for="Autolavaggio.TipoId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Autolavaggio.Descrizione" class="control-label"></label>
+        <textarea asp-for="Autolavaggio.Descrizione" class="form-control"></textarea>
+        <span asp-validation-for="Autolavaggio.Descrizione" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Autolavaggio.Immagine" class="control-label"></label>
+        <input asp-for="Autolavaggio.Immagine" class="form-control" />
+        <span asp-validation-for="Autolavaggio.Immagine" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Autolavaggio.OrariDescrizione" class="control-label"></label>
+        <textarea asp-for="Autolavaggio.OrariDescrizione" class="form-control"></textarea>
+        <span asp-validation-for="Autolavaggio.OrariDescrizione" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label>Servizi disponibili:</label>
+        <div>
+            @foreach (var servizio in Model.Servizi)
+            {
+                <div class="form-check">
+                    <input type="checkbox" name="SelectedServizi" class="form-check-input" value="@servizio.Id"
+                    @(Model.SelectedServizi.Contains(servizio.Id) ? "checked" : "") />
+                    <label class="form-check-label">@servizio.Nome</label>
+                </div>
+            }
+        </div>
+        <span asp-validation-for="SelectedServizi" class="text-danger"></span>
+    </div>
+
+
+    <div class="form-group">
+        <input type="submit" value="Salva" class="btn btn-primary" />
+    </div>
+</form>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Torna alla lista</a>
 </div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}

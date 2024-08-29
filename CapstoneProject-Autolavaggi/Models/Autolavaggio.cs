@@ -17,22 +17,20 @@ namespace CapstoneProject_Autolavaggi.Models
         [Required]
         public string CAP { get; set; }
         [Required]
-        public int Telefono { get; set; }
+        public string Telefono { get; set; }
         [Required]
-        public int TipoId { get; set; }
-        public Tipo Tipo { get; set; }
-        [Required]
-        public string Descrizione { get; set; }
-        public string Immagine { get; set; }
+        public int? TipoId { get; set; }
+        public Tipo? Tipo { get; set; }
+        public string? Descrizione { get; set; }
+        public string? Immagine { get; set; }
         [DataType(DataType.MultilineText)]
-        public string OrariDescrizione { get; set; }
-        public ICollection<Servizio> Servizi { get; set; }
-        public ICollection<Prenotazione> Prenotazioni { get; set; }
-        public ICollection<Recensione> Recensioni { get; set; }
-        public int OwnerId { get; set; }
-        public User Owner { get; set; }
+        public string? OrariDescrizione { get; set; }
+        public ICollection<Prenotazione>? Prenotazioni { get; set; } 
+        public ICollection<Recensione>? Recensioni { get; set; }
+        public int? OwnerId { get; set; }
+        public User? Owner { get; set; }
         [NotMapped]
-        public List<int> ServiziSelezionati { get; set; } = new List<int>();
+        public List<Servizio> Servizi { get; set; } = new List<Servizio>();
 
     }
 }

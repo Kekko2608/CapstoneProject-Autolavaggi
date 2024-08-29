@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CapstoneProject_Autolavaggi.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240829103920_nuovodatabase")]
+    [Migration("20240829152248_nuovodatabase")]
     partial class nuovodatabase
     {
         /// <inheritdoc />
@@ -116,11 +116,9 @@ namespace CapstoneProject_Autolavaggi.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Descrizione")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Immagine")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nome")
@@ -128,16 +126,20 @@ namespace CapstoneProject_Autolavaggi.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("OrariDescrizione")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("OwnerId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ServizioId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Telefono")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("OwnerId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Telefono")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TipoId")
+                    b.Property<int?>("TipoId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<string>("Via")
@@ -148,6 +150,8 @@ namespace CapstoneProject_Autolavaggi.Migrations
                         .HasName("PK_Autolavaggi");
 
                     b.HasIndex("OwnerId");
+
+                    b.HasIndex("ServizioId");
 
                     b.HasIndex("TipoId");
 
@@ -229,9 +233,6 @@ namespace CapstoneProject_Autolavaggi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("AutolavaggioId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Costo")
                         .HasColumnType("int");
 
@@ -247,8 +248,6 @@ namespace CapstoneProject_Autolavaggi.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AutolavaggioId");
 
                     b.ToTable("Servizi");
                 });
@@ -321,8 +320,11 @@ namespace CapstoneProject_Autolavaggi.Migrations
                     b.HasOne("CapstoneProject_Autolavaggi.Models.Auth.User", "Owner")
                         .WithMany()
                         .HasForeignKey("OwnerId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("CapstoneProject_Autolavaggi.Models.Servizio", null)
+                        .WithMany("Autolavaggi")
+                        .HasForeignKey("ServizioId");
 
                     b.HasOne("CapstoneProject_Autolavaggi.Models.Tipo", "Tipo")
                         .WithMany("Autolavaggi")
@@ -373,13 +375,6 @@ namespace CapstoneProject_Autolavaggi.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("CapstoneProject_Autolavaggi.Models.Servizio", b =>
-                {
-                    b.HasOne("CapstoneProject_Autolavaggi.Models.Autolavaggio", null)
-                        .WithMany("Servizi")
-                        .HasForeignKey("AutolavaggioId");
-                });
-
             modelBuilder.Entity("CapstoneProject_Autolavaggi.Models.ServizioPrenotazione", b =>
                 {
                     b.HasOne("CapstoneProject_Autolavaggi.Models.Prenotazione", "Prenotazione")
@@ -418,13 +413,16 @@ namespace CapstoneProject_Autolavaggi.Migrations
                     b.Navigation("Prenotazioni");
 
                     b.Navigation("Recensioni");
-
-                    b.Navigation("Servizi");
                 });
 
             modelBuilder.Entity("CapstoneProject_Autolavaggi.Models.Prenotazione", b =>
                 {
                     b.Navigation("ServiziPrenotazione");
+                });
+
+            modelBuilder.Entity("CapstoneProject_Autolavaggi.Models.Servizio", b =>
+                {
+                    b.Navigation("Autolavaggi");
                 });
 
             modelBuilder.Entity("CapstoneProject_Autolavaggi.Models.Tipo", b =>

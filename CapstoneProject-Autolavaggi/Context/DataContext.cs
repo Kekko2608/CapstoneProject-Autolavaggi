@@ -85,8 +85,7 @@ namespace CapstoneProject_Autolavaggi.Context
                       .OnDelete(DeleteBehavior.Restrict); // Prevenzione di cicli
             });
 
-            
-
+           
             OnModelCreatingPartial(modelBuilder);
         }
 
