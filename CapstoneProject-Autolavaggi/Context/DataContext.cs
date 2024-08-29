@@ -74,15 +74,24 @@ namespace CapstoneProject_Autolavaggi.Context
                       .OnDelete(DeleteBehavior.Restrict); // Prevenzione di cicli
             });
 
+            modelBuilder.Entity<ServizioPrenotazione>()
+            .HasOne(sp => sp.Servizio)
+            .WithMany(s => s.ServizioPrenotazioni)
+            .HasForeignKey(sp => sp.ServizioId);
+
+            modelBuilder.Entity<ServizioPrenotazione>()
+                .HasOne(sp => sp.Prenotazione)
+                .WithMany(p => p.ServiziPrenotazione)
+                .HasForeignKey(sp => sp.PrenotazioneId);
+
             modelBuilder.Entity<Autolavaggio>(entity =>
             {
                 entity.HasKey(e => e.Id).HasName("PK_Autolavaggi");
 
-                // Configurazione della relazione con User (Owner)
                 entity.HasOne(a => a.Owner)
-                      .WithMany() // Se un User può essere proprietario di più autolavaggi
+                      .WithMany() // un User può essere proprietario di più autolavaggi
                       .HasForeignKey(a => a.OwnerId)
-                      .OnDelete(DeleteBehavior.Restrict); // Prevenzione di cicli
+                      .OnDelete(DeleteBehavior.Restrict); 
             });
 
            

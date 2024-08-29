@@ -20,7 +20,9 @@ namespace CapstoneProject_Autolavaggi.Models
         [Required]
         public int Durata { get; set; }
 
-        public List<Autolavaggio> Autolavaggi { get; set; } = new List<Autolavaggio>();
+        public int AutolavaggioId { get; set; }
+        public Autolavaggio Autolavaggio { get; set; }
+        public List<ServizioPrenotazione> ServizioPrenotazioni { get; set; } = new List<ServizioPrenotazione>();
 
 
     }

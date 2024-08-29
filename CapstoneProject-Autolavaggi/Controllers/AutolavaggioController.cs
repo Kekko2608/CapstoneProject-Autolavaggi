@@ -47,10 +47,14 @@ namespace CapstoneProject_Autolavaggi.Controllers
                     OrariDescrizione = model.Autolavaggio.OrariDescrizione,
                     TipoId = model.Autolavaggio.TipoId,
 
-                    Servizi = await _ctx.Servizi
-                        .Where(s => model.SelectedServizi.Contains(s.Id))
-                        .ToListAsync()
+                    
                 };
+
+                var serviziSelezionati = await _ctx.Servizi
+                    .Where(s => model.SelectedServizi.Contains(s.Id))
+                    .ToListAsync();
+
+                autolavaggio.Servizi = serviziSelezionati;
 
                 _ctx.Autolavaggi.Add(autolavaggio);
                 await _ctx.SaveChangesAsync();

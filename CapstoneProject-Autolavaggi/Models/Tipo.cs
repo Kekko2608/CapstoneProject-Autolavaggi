@@ -10,7 +10,7 @@ namespace CapstoneProject_Autolavaggi.Models
         [Required]
         public string Nome { get; set; }
         public string Descrizione { get; set; }
-        public ICollection<Autolavaggio> Autolavaggi { get; set; }
+        public List<Autolavaggio> Autolavaggi { get; set; }
 
     }
 }
