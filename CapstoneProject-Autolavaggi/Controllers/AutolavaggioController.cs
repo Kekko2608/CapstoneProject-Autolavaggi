@@ -70,13 +70,17 @@ namespace CapstoneProject_Autolavaggi.Controllers
         public async Task<IActionResult> GetAllAutolavaggi()
         {
             var autolavaggi = await _ctx.Autolavaggi
-                .Include(a => a.Tipo) // Include il tipo se necessario
-                .Include(a => a.Prenotazioni) // Include prenotazioni se necessario
-                .Include(a => a.Recensioni) // Include recensioni se necessario
+                .Select(a => new
+                {
+                    a.Id,
+                    a.Nome,
+                    a.Immagine
+                })
                 .ToListAsync();
 
             return View(autolavaggi);
         }
+
 
 
 

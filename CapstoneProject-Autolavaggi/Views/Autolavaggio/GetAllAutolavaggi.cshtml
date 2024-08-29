@@ -1,0 +1,30 @@
+﻿@model IEnumerable<dynamic>
+
+@{
+    ViewData["Title"] = "Tutti gli Autolavaggi";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div class="container">
+    <div class="row">
+        @foreach (var autolavaggio in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    @if (!string.IsNullOrEmpty(autolavaggio.Immagine))
+                    {
+                        <img src="@autolavaggio.Immagine" class="card-img-top" alt="Immagine di @autolavaggio.Nome" />
+                    }
+                    else
+                    {
+                        <img src="https://via.placeholder.com/60" class="card-img-top" alt="Immagine di @autolavaggio.Nome" />
+                    }
+                    <div class="card-body">
+                        <h5 class="card-title">@autolavaggio.Nome</h5>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
