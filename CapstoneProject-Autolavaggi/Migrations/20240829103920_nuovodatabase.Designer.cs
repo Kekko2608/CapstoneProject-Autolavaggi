@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CapstoneProject_Autolavaggi.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240828163806_updateTabellaRole")]
-    partial class updateTabellaRole
+    [Migration("20240829103920_nuovodatabase")]
+    partial class nuovodatabase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -127,6 +127,10 @@ namespace CapstoneProject_Autolavaggi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("OrariDescrizione")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("OwnerId")
                         .HasColumnType("int");
 
@@ -148,33 +152,6 @@ namespace CapstoneProject_Autolavaggi.Migrations
                     b.HasIndex("TipoId");
 
                     b.ToTable("Autolavaggi");
-                });
-
-            modelBuilder.Entity("CapstoneProject_Autolavaggi.Models.Orario", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<TimeSpan>("Alle")
-                        .HasColumnType("time");
-
-                    b.Property<int>("AutolavaggioId")
-                        .HasColumnType("int");
-
-                    b.Property<TimeSpan>("Dalle")
-                        .HasColumnType("time");
-
-                    b.Property<int>("GiornoSettimana")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AutolavaggioId");
-
-                    b.ToTable("Orari");
                 });
 
             modelBuilder.Entity("CapstoneProject_Autolavaggi.Models.Prenotazione", b =>
@@ -358,17 +335,6 @@ namespace CapstoneProject_Autolavaggi.Migrations
                     b.Navigation("Tipo");
                 });
 
-            modelBuilder.Entity("CapstoneProject_Autolavaggi.Models.Orario", b =>
-                {
-                    b.HasOne("CapstoneProject_Autolavaggi.Models.Autolavaggio", "Autolavaggio")
-                        .WithMany("Orari")
-                        .HasForeignKey("AutolavaggioId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Autolavaggio");
-                });
-
             modelBuilder.Entity("CapstoneProject_Autolavaggi.Models.Prenotazione", b =>
                 {
                     b.HasOne("CapstoneProject_Autolavaggi.Models.Autolavaggio", "Autolavaggio")
@@ -449,8 +415,6 @@ namespace CapstoneProject_Autolavaggi.Migrations
 
             modelBuilder.Entity("CapstoneProject_Autolavaggi.Models.Autolavaggio", b =>
                 {
-                    b.Navigation("Orari");
-
                     b.Navigation("Prenotazioni");
 
                     b.Navigation("Recensioni");

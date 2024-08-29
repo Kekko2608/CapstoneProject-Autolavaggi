@@ -24,13 +24,15 @@ namespace CapstoneProject_Autolavaggi.Models
         [Required]
         public string Descrizione { get; set; }
         public string Immagine { get; set; }
-        [Required]
+        [DataType(DataType.MultilineText)]
+        public string OrariDescrizione { get; set; }
         public ICollection<Servizio> Servizi { get; set; }
         public ICollection<Prenotazione> Prenotazioni { get; set; }
         public ICollection<Recensione> Recensioni { get; set; }
-        [Required]
-        public ICollection<Orario> Orari { get; set; }
         public int OwnerId { get; set; }
         public User Owner { get; set; }
+        [NotMapped]
+        public List<int> ServiziSelezionati { get; set; } = new List<int>();
+
     }
 }

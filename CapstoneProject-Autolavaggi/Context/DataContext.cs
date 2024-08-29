@@ -8,7 +8,6 @@ namespace CapstoneProject_Autolavaggi.Context
     {
         public virtual DbSet<Autolavaggio> Autolavaggi { get; set; }
         public virtual DbSet<Prenotazione> Prenotazioni { get; set; }
-        public virtual DbSet<Orario> Orari { get; set; }
         public virtual DbSet<Recensione> Recensioni { get; set; }
         public virtual DbSet<Servizio> Servizi { get; set; }
         public virtual DbSet<Tipo> Tipi { get; set; }

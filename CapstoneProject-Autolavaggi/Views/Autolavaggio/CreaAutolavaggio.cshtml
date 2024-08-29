@@ -1,0 +1,94 @@
+﻿@model CapstoneProject_Autolavaggi.Models.Autolavaggio
+
+@{
+    ViewData["Title"] = "CreaAutolavaggio";
+}
+
+<h1>Registra il tuo Autolavaggio</h1>
+
+<h4>Autolavaggio</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreaAutolavaggio" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Nome" class="control-label"></label>
+                <input asp-for="Nome" class="form-control" />
+                <span asp-validation-for="Nome" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Via" class="control-label"></label>
+                <input asp-for="Via" class="form-control" />
+                <span asp-validation-for="Via" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Città" class="control-label"></label>
+                <input asp-for="Città" class="form-control" />
+                <span asp-validation-for="Città" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CAP" class="control-label"></label>
+                <input asp-for="CAP" class="form-control" />
+                <span asp-validation-for="CAP" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Telefono" class="control-label"></label>
+                <input asp-for="Telefono" class="form-control" />
+                <span asp-validation-for="Telefono" class="text-danger"></span>
+            </div>
+            <div>
+                <label>Tipo:</label>
+                <select asp-for="TipoId" asp-items="@(new SelectList(ViewBag.Tipi, "Id", "Nome"))"></select>
+                <span asp-validation-for="TipoId"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Descrizione" class="control-label"></label>
+                <input asp-for="Descrizione" class="form-control" />
+                <span asp-validation-for="Descrizione" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Immagine" class="control-label"></label>
+                <input asp-for="Immagine" class="form-control" />
+                <span asp-validation-for="Immagine" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="Servizi">Seleziona Servizi:</label>
+                <div>
+                    @foreach (var servizio in ViewBag.Servizi)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="ServiziSelezionati" value="@servizio.Id" />
+                            <label class="form-check-label">
+                                @servizio.Nome
+                            </label>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="OrariDescrizione">Orari di apertura</label>
+                <textarea asp-for="OrariDescrizione" class="form-control"></textarea>
+                <span asp-validation-for="OrariDescrizione" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="OwnerId" class="control-label"></label>
+                <input asp-for="OwnerId" class="form-control" />
+                <span asp-validation-for="OwnerId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

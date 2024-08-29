@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CapstoneProject_Autolavaggi.Migrations
 {
     /// <inheritdoc />
-    public partial class primaMigr : Migration
+    public partial class nuovodatabase : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -17,7 +17,7 @@ namespace CapstoneProject_Autolavaggi.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
+                    Nome = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -68,6 +68,7 @@ namespace CapstoneProject_Autolavaggi.Migrations
                     TipoId = table.Column<int>(type: "int", nullable: false),
                     Descrizione = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Immagine = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    OrariDescrizione = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     OwnerId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -109,28 +110,6 @@ namespace CapstoneProject_Autolavaggi.Migrations
                         column: x => x.UserId,
                         principalTable: "User",
                         principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Orari",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    GiornoSettimana = table.Column<int>(type: "int", nullable: false),
-                    Dalle = table.Column<TimeSpan>(type: "time", nullable: false),
-                    Alle = table.Column<TimeSpan>(type: "time", nullable: false),
-                    AutolavaggioId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Orari", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Orari_Autolavaggi_AutolavaggioId",
-                        column: x => x.AutolavaggioId,
-                        principalTable: "Autolavaggi",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -250,11 +229,6 @@ namespace CapstoneProject_Autolavaggi.Migrations
                 column: "TipoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Orari_AutolavaggioId",
-                table: "Orari",
-                column: "AutolavaggioId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Prenotazioni_AutolavaggioId",
                 table: "Prenotazioni",
                 column: "AutolavaggioId");
@@ -303,9 +277,6 @@ namespace CapstoneProject_Autolavaggi.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Orari");
-
             migrationBuilder.DropTable(
                 name: "Recensioni");
 
