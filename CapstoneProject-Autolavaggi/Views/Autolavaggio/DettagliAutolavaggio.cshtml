@@ -1,0 +1,33 @@
+﻿@model CapstoneProject_Autolavaggi.Models.AutolavaggioViewModel
+
+@{
+    ViewData["Title"] = "Dettagli Autolavaggio";
+}
+
+<h1>@Model.Autolavaggio.Nome</h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <img src="@Model.Autolavaggio.Immagine" class="img-fluid" alt="Immagine di @Model.Autolavaggio.Nome" />
+        </div>
+        <div class="col-md-6">
+            <h3>Dettagli</h3>
+            <p><strong>Via:</strong> @Model.Autolavaggio.Via</p>
+            <p><strong>Città:</strong> @Model.Autolavaggio.Città</p>
+            <p><strong>CAP:</strong> @Model.Autolavaggio.CAP</p>
+            <p><strong>Telefono:</strong> @Model.Autolavaggio.Telefono</p>
+            <p><strong>Tipo:</strong> @(Model.Autolavaggio.TipoNome ?? "N/A")</p>
+            <p><strong>Descrizione:</strong> @Model.Autolavaggio.Descrizione</p>
+            <p><strong>Orari:</strong> @Model.Autolavaggio.OrariDescrizione</p>
+
+            <h4>Servizi Offerti</h4>
+            <ul>
+                @foreach (var servizio in Model.Servizi)
+                {
+                    <li>@servizio.Nome - @servizio.Costo €</li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>

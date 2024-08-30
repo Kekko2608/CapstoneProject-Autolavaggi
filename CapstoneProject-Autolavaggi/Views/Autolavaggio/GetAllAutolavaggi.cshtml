@@ -11,19 +11,21 @@
         @foreach (var autolavaggio in Model)
         {
             <div class="col-md-4 mb-4">
-                <div class="card">
-                    @if (!string.IsNullOrEmpty(autolavaggio.Immagine))
-                    {
-                        <img src="@autolavaggio.Immagine" class="card-img-top" alt="Immagine di @autolavaggio.Nome" />
-                    }
-                    else
-                    {
-                        <img src="https://via.placeholder.com/60" class="card-img-top" alt="Immagine di @autolavaggio.Nome" />
-                    }
-                    <div class="card-body">
-                        <h5 class="card-title">@autolavaggio.Nome</h5>
+                <a href="@Url.Action("DettagliAutolavaggio", "Autolavaggio", new { id = autolavaggio.Id })" class="text-decoration-none">
+                    <div class="card">
+                        @if (!string.IsNullOrEmpty(autolavaggio.Immagine))
+                        {
+                            <img src="@autolavaggio.Immagine" class="card-img-top" alt="Immagine di @autolavaggio.Nome" />
+                        }
+                        else
+                        {
+                            <img src="https://via.placeholder.com/60" class="card-img-top" alt="Immagine di @autolavaggio.Nome" />
+                        }
+                        <div class="card-body">
+                            <h5 class="card-title text-dark">@autolavaggio.Nome</h5>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
         }
     </div>

@@ -80,6 +80,28 @@ namespace CapstoneProject_Autolavaggi.Controllers
         }
 
 
+        public async Task<IActionResult> DettagliAutolavaggio(int id)
+        {
+            var autolavaggio = await _ctx.Autolavaggi
+                .Include(a => a.Servizi)
+                .Include(a => a.Tipo)
+                .FirstOrDefaultAsync(a => a.Id == id);
+
+            if (autolavaggio == null)
+            {
+                return NotFound();
+            }
+
+            var viewModel = new AutolavaggioViewModel
+            {
+                Autolavaggio = autolavaggio,
+                Servizi = autolavaggio.Servizi,
+                Tipi = new List<Tipo> { autolavaggio.Tipo }
+            };
+
+            return View(viewModel);
+        }
+
 
 
         public IActionResult Index()
