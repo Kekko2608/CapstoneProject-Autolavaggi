@@ -46,6 +46,7 @@ namespace CapstoneProject_Autolavaggi.Controllers
                 // Crea le credenziali e il ticket di autenticazione
                 var claims = new List<Claim>
                 {
+                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                     new Claim(ClaimTypes.Name, user.Email),
                     new Claim(ClaimTypes.Role, user.UserRoles.FirstOrDefault()?.Role.Nome ?? "Cliente")
                 };

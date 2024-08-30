@@ -6,5 +6,7 @@
         public List<Servizio> Servizi { get; set; } = new List<Servizio>();
         public List<Tipo> Tipi { get; set; } = new List<Tipo>();
         public List<int> SelectedServizi { get; set; } = new List<int>();
+        public List<Recensione> Recensioni { get; set; } = new List<Recensione>(); // Lista di recensioni
+        public Recensione NuovaRecensione { get; set; } = new Recensione();
     }
 }

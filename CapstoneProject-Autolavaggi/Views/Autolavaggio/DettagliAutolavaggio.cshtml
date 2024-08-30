@@ -28,6 +28,9 @@
                     <li>@servizio.Nome - @servizio.Costo €</li>
                 }
             </ul>
+
+            <!-- Link per andare alla pagina delle recensioni -->
+            <a href="@Url.Action("Recensioni", "Recensione", new { id = Model.Autolavaggio.Id })" class="btn btn-primary">Visualizza e Aggiungi Recensioni</a>
         </div>
     </div>
 </div>
