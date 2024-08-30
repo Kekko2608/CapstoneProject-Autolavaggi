@@ -14,7 +14,7 @@ namespace CapstoneProject_Autolavaggi.Context
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<Role> Role { get; set; }
         public virtual DbSet<UserRole> UserRole { get; set; }
-        public virtual DbSet<ServizioPrenotazione> ServiziPrenotazioni { get; set; }
+       
 
         public DataContext(DbContextOptions<DataContext> opt) : base(opt) { }
 
@@ -74,15 +74,6 @@ namespace CapstoneProject_Autolavaggi.Context
                       .OnDelete(DeleteBehavior.Restrict); // Prevenzione di cicli
             });
 
-            modelBuilder.Entity<ServizioPrenotazione>()
-            .HasOne(sp => sp.Servizio)
-            .WithMany(s => s.ServizioPrenotazioni)
-            .HasForeignKey(sp => sp.ServizioId);
-
-            modelBuilder.Entity<ServizioPrenotazione>()
-                .HasOne(sp => sp.Prenotazione)
-                .WithMany(p => p.ServiziPrenotazione)
-                .HasForeignKey(sp => sp.PrenotazioneId);
 
             modelBuilder.Entity<Autolavaggio>(entity =>
             {

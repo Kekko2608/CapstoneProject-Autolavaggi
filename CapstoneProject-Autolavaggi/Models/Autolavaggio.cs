@@ -18,8 +18,7 @@ namespace CapstoneProject_Autolavaggi.Models
         public string CAP { get; set; }
         [Required]
         public string Telefono { get; set; }
-        [Required]
-        public int? TipoId { get; set; }
+        public string? TipoNome { get; set; }
         public Tipo? Tipo { get; set; }
         public string? Descrizione { get; set; }
         public string? Immagine { get; set; }

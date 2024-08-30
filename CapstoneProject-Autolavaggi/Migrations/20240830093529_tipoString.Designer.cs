@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CapstoneProject_Autolavaggi.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240829172236_NomeACaso")]
-    partial class NomeACaso
+    [Migration("20240830093529_tipoString")]
+    partial class tipoString
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,21 @@ namespace CapstoneProject_Autolavaggi.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("AutolavaggioServizio", b =>
+                {
+                    b.Property<int>("AutolavaggiId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ServiziId")
+                        .HasColumnType("int");
+
+                    b.HasKey("AutolavaggiId", "ServiziId");
+
+                    b.HasIndex("ServiziId");
+
+                    b.ToTable("AutolavaggioServizio");
+                });
 
             modelBuilder.Entity("CapstoneProject_Autolavaggi.Models.Auth.Role", b =>
                 {
@@ -136,8 +151,10 @@ namespace CapstoneProject_Autolavaggi.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("TipoId")
-                        .IsRequired()
                         .HasColumnType("int");
+
+                    b.Property<string>("TipoNome")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Via")
                         .IsRequired()
@@ -228,9 +245,6 @@ namespace CapstoneProject_Autolavaggi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("AutolavaggioId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Costo")
                         .HasColumnType("int");
 
@@ -247,32 +261,7 @@ namespace CapstoneProject_Autolavaggi.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AutolavaggioId");
-
                     b.ToTable("Servizi");
-                });
-
-            modelBuilder.Entity("CapstoneProject_Autolavaggi.Models.ServizioPrenotazione", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("PrenotazioneId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ServizioId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PrenotazioneId");
-
-                    b.HasIndex("ServizioId");
-
-                    b.ToTable("ServiziPrenotazioni");
                 });
 
             modelBuilder.Entity("CapstoneProject_Autolavaggi.Models.Tipo", b =>
@@ -294,6 +283,36 @@ namespace CapstoneProject_Autolavaggi.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Tipi");
+                });
+
+            modelBuilder.Entity("PrenotazioneServizio", b =>
+                {
+                    b.Property<int>("PrenotazioniId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SeriziId")
+                        .HasColumnType("int");
+
+                    b.HasKey("PrenotazioniId", "SeriziId");
+
+                    b.HasIndex("SeriziId");
+
+                    b.ToTable("PrenotazioneServizio");
+                });
+
+            modelBuilder.Entity("AutolavaggioServizio", b =>
+                {
+                    b.HasOne("CapstoneProject_Autolavaggi.Models.Autolavaggio", null)
+                        .WithMany()
+                        .HasForeignKey("AutolavaggiId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CapstoneProject_Autolavaggi.Models.Servizio", null)
+                        .WithMany()
+                        .HasForeignKey("ServiziId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("CapstoneProject_Autolavaggi.Models.Auth.UserRole", b =>
@@ -324,9 +343,7 @@ namespace CapstoneProject_Autolavaggi.Migrations
 
                     b.HasOne("CapstoneProject_Autolavaggi.Models.Tipo", "Tipo")
                         .WithMany("Autolavaggi")
-                        .HasForeignKey("TipoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("TipoId");
 
                     b.Navigation("Owner");
 
@@ -371,34 +388,19 @@ namespace CapstoneProject_Autolavaggi.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("CapstoneProject_Autolavaggi.Models.Servizio", b =>
+            modelBuilder.Entity("PrenotazioneServizio", b =>
                 {
-                    b.HasOne("CapstoneProject_Autolavaggi.Models.Autolavaggio", "Autolavaggio")
-                        .WithMany("Servizi")
-                        .HasForeignKey("AutolavaggioId")
+                    b.HasOne("CapstoneProject_Autolavaggi.Models.Prenotazione", null)
+                        .WithMany()
+                        .HasForeignKey("PrenotazioniId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Autolavaggio");
-                });
-
-            modelBuilder.Entity("CapstoneProject_Autolavaggi.Models.ServizioPrenotazione", b =>
-                {
-                    b.HasOne("CapstoneProject_Autolavaggi.Models.Prenotazione", "Prenotazione")
-                        .WithMany("ServiziPrenotazione")
-                        .HasForeignKey("PrenotazioneId")
+                    b.HasOne("CapstoneProject_Autolavaggi.Models.Servizio", null)
+                        .WithMany()
+                        .HasForeignKey("SeriziId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("CapstoneProject_Autolavaggi.Models.Servizio", "Servizio")
-                        .WithMany("ServizioPrenotazioni")
-                        .HasForeignKey("ServizioId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Prenotazione");
-
-                    b.Navigation("Servizio");
                 });
 
             modelBuilder.Entity("CapstoneProject_Autolavaggi.Models.Auth.Role", b =>
@@ -420,18 +422,6 @@ namespace CapstoneProject_Autolavaggi.Migrations
                     b.Navigation("Prenotazioni");
 
                     b.Navigation("Recensioni");
-
-                    b.Navigation("Servizi");
-                });
-
-            modelBuilder.Entity("CapstoneProject_Autolavaggi.Models.Prenotazione", b =>
-                {
-                    b.Navigation("ServiziPrenotazione");
-                });
-
-            modelBuilder.Entity("CapstoneProject_Autolavaggi.Models.Servizio", b =>
-                {
-                    b.Navigation("ServizioPrenotazioni");
                 });
 
             modelBuilder.Entity("CapstoneProject_Autolavaggi.Models.Tipo", b =>

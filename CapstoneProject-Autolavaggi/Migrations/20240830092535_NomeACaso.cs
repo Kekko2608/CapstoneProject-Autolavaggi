@@ -25,6 +25,22 @@ namespace CapstoneProject_Autolavaggi.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Servizi",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nome = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Descrizione = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Costo = table.Column<int>(type: "int", nullable: false),
+                    Durata = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Servizi", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Tipi",
                 columns: table => new
                 {
@@ -65,7 +81,8 @@ namespace CapstoneProject_Autolavaggi.Migrations
                     Città = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CAP = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Telefono = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TipoId = table.Column<int>(type: "int", nullable: false),
+                    TipoNome = table.Column<int>(type: "int", nullable: true),
+                    TipoId = table.Column<int>(type: "int", nullable: true),
                     Descrizione = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Immagine = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     OrariDescrizione = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -78,8 +95,7 @@ namespace CapstoneProject_Autolavaggi.Migrations
                         name: "FK_Autolavaggi_Tipi_TipoId",
                         column: x => x.TipoId,
                         principalTable: "Tipi",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Autolavaggi_User_OwnerId",
                         column: x => x.OwnerId,
@@ -110,6 +126,30 @@ namespace CapstoneProject_Autolavaggi.Migrations
                         column: x => x.UserId,
                         principalTable: "User",
                         principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AutolavaggioServizio",
+                columns: table => new
+                {
+                    AutolavaggiId = table.Column<int>(type: "int", nullable: false),
+                    ServiziId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AutolavaggioServizio", x => new { x.AutolavaggiId, x.ServiziId });
+                    table.ForeignKey(
+                        name: "FK_AutolavaggioServizio_Autolavaggi_AutolavaggiId",
+                        column: x => x.AutolavaggiId,
+                        principalTable: "Autolavaggi",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AutolavaggioServizio_Servizi_ServiziId",
+                        column: x => x.ServiziId,
+                        principalTable: "Servizi",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -171,49 +211,24 @@ namespace CapstoneProject_Autolavaggi.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Servizi",
+                name: "PrenotazioneServizio",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Nome = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Descrizione = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Costo = table.Column<int>(type: "int", nullable: false),
-                    Durata = table.Column<int>(type: "int", nullable: false),
-                    AutolavaggioId = table.Column<int>(type: "int", nullable: false)
+                    PrenotazioniId = table.Column<int>(type: "int", nullable: false),
+                    SeriziId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Servizi", x => x.Id);
+                    table.PrimaryKey("PK_PrenotazioneServizio", x => new { x.PrenotazioniId, x.SeriziId });
                     table.ForeignKey(
-                        name: "FK_Servizi_Autolavaggi_AutolavaggioId",
-                        column: x => x.AutolavaggioId,
-                        principalTable: "Autolavaggi",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ServiziPrenotazioni",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    PrenotazioneId = table.Column<int>(type: "int", nullable: false),
-                    ServizioId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ServiziPrenotazioni", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ServiziPrenotazioni_Prenotazioni_PrenotazioneId",
-                        column: x => x.PrenotazioneId,
+                        name: "FK_PrenotazioneServizio_Prenotazioni_PrenotazioniId",
+                        column: x => x.PrenotazioniId,
                         principalTable: "Prenotazioni",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ServiziPrenotazioni_Servizi_ServizioId",
-                        column: x => x.ServizioId,
+                        name: "FK_PrenotazioneServizio_Servizi_SeriziId",
+                        column: x => x.SeriziId,
                         principalTable: "Servizi",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -228,6 +243,16 @@ namespace CapstoneProject_Autolavaggi.Migrations
                 name: "IX_Autolavaggi_TipoId",
                 table: "Autolavaggi",
                 column: "TipoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AutolavaggioServizio_ServiziId",
+                table: "AutolavaggioServizio",
+                column: "ServiziId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PrenotazioneServizio_SeriziId",
+                table: "PrenotazioneServizio",
+                column: "SeriziId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Prenotazioni_AutolavaggioId",
@@ -250,21 +275,6 @@ namespace CapstoneProject_Autolavaggi.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Servizi_AutolavaggioId",
-                table: "Servizi",
-                column: "AutolavaggioId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ServiziPrenotazioni_PrenotazioneId",
-                table: "ServiziPrenotazioni",
-                column: "PrenotazioneId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ServiziPrenotazioni_ServizioId",
-                table: "ServiziPrenotazioni",
-                column: "ServizioId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_UserRole_RoleId",
                 table: "UserRole",
                 column: "RoleId");
@@ -279,10 +289,13 @@ namespace CapstoneProject_Autolavaggi.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Recensioni");
+                name: "AutolavaggioServizio");
 
             migrationBuilder.DropTable(
-                name: "ServiziPrenotazioni");
+                name: "PrenotazioneServizio");
+
+            migrationBuilder.DropTable(
+                name: "Recensioni");
 
             migrationBuilder.DropTable(
                 name: "UserRole");

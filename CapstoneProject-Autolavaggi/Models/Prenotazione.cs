@@ -17,7 +17,7 @@ namespace CapstoneProject_Autolavaggi.Models
         public int AutolavaggioId { get; set; }
         public Autolavaggio Autolavaggio { get; set; }
         public StatoPrenotazione Stato { get; set; }
-        public List<ServizioPrenotazione> ServiziPrenotazione { get; set; }
+        public List<Servizio> Serizi { get; set; } = new List<Servizio>();
 
         public enum StatoPrenotazione
         {

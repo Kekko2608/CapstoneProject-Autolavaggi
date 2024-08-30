@@ -21,9 +21,9 @@ namespace CapstoneProject_Autolavaggi.Controllers
             var viewmodel = new AutolavaggioViewModel
             {
                 Tipi = await _ctx.Tipi.ToListAsync(),
-                Servizi = await _ctx.Servizi.ToListAsync()
+                Servizi = await _ctx.Servizi.ToListAsync(),
+                
             };
-
 
             return View(viewmodel);
         }
@@ -45,17 +45,13 @@ namespace CapstoneProject_Autolavaggi.Controllers
                     Descrizione = model.Autolavaggio.Descrizione,
                     Immagine = model.Autolavaggio.Immagine,
                     OrariDescrizione = model.Autolavaggio.OrariDescrizione,
-                    TipoId = model.Autolavaggio.TipoId,
-
+                    TipoNome = model.Autolavaggio.TipoNome,
+                    Servizi= await _ctx.Servizi
+                    .Where(s => model.SelectedServizi.Contains(s.Id))
+                    .ToListAsync()
                     
                 };
-
-                var serviziSelezionati = await _ctx.Servizi
-                    .Where(s => model.SelectedServizi.Contains(s.Id))
-                    .ToListAsync();
-
-                autolavaggio.Servizi = serviziSelezionati;
-
+            
                 _ctx.Autolavaggi.Add(autolavaggio);
                 await _ctx.SaveChangesAsync();
 
@@ -64,8 +60,6 @@ namespace CapstoneProject_Autolavaggi.Controllers
 
             model.Servizi = await _ctx.Servizi.ToListAsync();
             model.Tipi = await _ctx.Tipi.ToListAsync();
-
-
             return View(model);
         }
 
