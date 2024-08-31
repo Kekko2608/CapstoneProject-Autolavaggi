@@ -25,9 +25,13 @@
             <ul>
                 @foreach (var servizio in Model.Servizi)
                 {
-                    <li>@servizio.Nome - @servizio.Costo €</li>
+                    <li>
+                        @servizio.Nome - @servizio.Costo €
+                        <a href="@Url.Action("Prenotazione", "Prenotazione", new { servizioId = servizio.Id, autolavaggioId = Model.Autolavaggio.Id })" class="btn btn-success btn-sm">Prenota</a>
+                    </li>
                 }
             </ul>
+
 
             <!-- Link per andare alla pagina delle recensioni -->
             <a href="@Url.Action("Recensioni", "Recensione", new { id = Model.Autolavaggio.Id })" class="btn btn-primary">Visualizza e Aggiungi Recensioni</a>

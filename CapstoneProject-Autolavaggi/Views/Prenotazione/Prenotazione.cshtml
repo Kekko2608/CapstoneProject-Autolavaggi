@@ -1,0 +1,77 @@
+﻿@model CapstoneProject_Autolavaggi.Models.AutolavaggioViewModel
+
+@{
+    ViewData["Title"] = "Prenotazione Servizio";
+}
+
+<h2>Prenota un Servizio presso @Model.Autolavaggio.Nome</h2>
+
+<div class="container">
+    <form id="prenotazioneForm" asp-action="ConfermaPrenotazione" method="post">
+        <input type="hidden" asp-for="NuovaPrenotazione.AutolavaggioId" />
+        <input type="hidden" asp-for="NuovaPrenotazione.ServizioId" />
+
+        <div class="form-group">
+            <label>Servizio:</label>
+            @{
+                var servizioSelezionato = Model.Servizi.FirstOrDefault(s => s.Id == Model.NuovaPrenotazione.ServizioId);
+            }
+            <input type="text" class="form-control" value="@servizioSelezionato?.Nome" disabled />
+        </div>
+
+        <div class="form-group">
+            <label>Data Prenotazione:</label>
+            <input asp-for="NuovaPrenotazione.Data" class="form-control" type="datetime-local" />
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Conferma Prenotazione" class="btn btn-primary" />
+            <a asp-action="Index" class="btn btn-secondary">Annulla</a>
+        </div>
+    </form>
+</div>
+
+<!-- Inclusione di jQuery e Bootstrap CSS/JS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Modale di conferma -->
+<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmModalLabel">Conferma Prenotazione</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Sei sicuro di voler confermare la prenotazione?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
+                <button type="button" class="btn btn-primary" id="confirmButton">Conferma</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        // Mostra il modale quando si invia il form
+        $('#prenotazioneForm').on('submit', function (event) {
+            event.preventDefault(); // Previene l'invio immediato del form
+            var form = $(this);
+
+            // Mostra il modale di conferma
+            $('#confirmModal').modal('show');
+
+            // Aggiungi un listener per il pulsante di conferma
+            $('#confirmButton').on('click', function () {
+                // Chiudi il modale
+                $('#confirmModal').modal('hide');
+
+                // Invia il form
+                form.off('submit').submit();
+            });
+        });
+    });
+</script>
