@@ -71,7 +71,7 @@ namespace CapstoneProject_Autolavaggi.Controllers
                 UserId = int.Parse(userId),  
                 ServizioId = model.NuovaPrenotazione.ServizioId,
                 AutolavaggioId = model.NuovaPrenotazione.AutolavaggioId,
-                Data = DateTime.Now
+                Data = model.NuovaPrenotazione.Data
             };
 
             _ctx.Prenotazioni.Add(prenotazione);

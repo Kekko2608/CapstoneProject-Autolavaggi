@@ -17,16 +17,9 @@ namespace CapstoneProject_Autolavaggi.Models
         public int AutolavaggioId { get; set; }
         public Autolavaggio Autolavaggio { get; set; }
         [Required]
-        public int ServizioId { get; set; }  // Associa un singolo servizio
+        public int ServizioId { get; set; }  
         public Servizio Servizio { get; set; }
-        public StatoPrenotazione Stato { get; set; }
         
-        public enum StatoPrenotazione
-        {
-            InSospeso,
-            Confermata,
-            Completata,
-            Cancellata
-        }
+        
     }
 }

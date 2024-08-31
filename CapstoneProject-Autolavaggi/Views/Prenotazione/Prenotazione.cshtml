@@ -20,8 +20,8 @@
         </div>
 
         <div class="form-group">
-            <label>Data Prenotazione:</label>
-            <input asp-for="NuovaPrenotazione.Data" class="form-control" type="datetime-local" />
+            <label>Seleziona giorno e ora desiderata:</label>
+            <input asp-for="NuovaPrenotazione.Data" class="form-control" type="datetime-local" id="dataPrenotazione" />
         </div>
 
         <div class="form-group">
@@ -56,6 +56,29 @@
 
 <script>
     $(document).ready(function () {
+        var today = new Date();
+        var year = 2024;
+        var minDate = new Date(year, 0, 1); // 1 gennaio 2024
+        var minDateStr = minDate.toISOString().slice(0, 16); // Formato YYYY-MM-DDTHH:MM
+
+        // Imposta il valore minimo e iniziale del campo datetime-local
+        var dataPrenotazione = $('#dataPrenotazione');
+        dataPrenotazione.attr('min', minDateStr);
+
+        // Imposta la data predefinita per il campo datetime-local
+        var defaultDateStr = minDate.toISOString().slice(0, 16);
+        dataPrenotazione.val(defaultDateStr);
+
+
+        // Imposta l'ora minima e massima del campo datetime-local
+        $('#dataPrenotazione').on('input', function () {
+            var value = $(this).val();
+            var hour = value.slice(11, 13);
+            if (hour < 8 || hour > 19) {
+                alert('L\'ora deve essere compresa tra le 08:00 e le 19:00.');
+                $(this).val('');
+            }
+        });
         // Mostra il modale quando si invia il form
         $('#prenotazioneForm').on('submit', function (event) {
             event.preventDefault(); // Previene l'invio immediato del form
