@@ -2,7 +2,7 @@
 using CapstoneProject_Autolavaggi.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Security.Claims;
+
 
 namespace CapstoneProject_Autolavaggi.Controllers
 {
@@ -42,7 +42,7 @@ namespace CapstoneProject_Autolavaggi.Controllers
 
                 if (user == null)
                 {
-                    return Unauthorized(); // O gestisci il caso in cui l'utente non è trovato
+                    return Unauthorized(); 
                 }
 
                 var autolavaggio = new Autolavaggio
@@ -59,18 +59,14 @@ namespace CapstoneProject_Autolavaggi.Controllers
                     Servizi = await _ctx.Servizi
                         .Where(s => model.SelectedServizi.Contains(s.Id))
                         .ToListAsync(),
-                    OwnerId = user.Id // Associa l'utente all'autolavaggio
+                    OwnerId = user.Id 
                 };
 
                 _ctx.Autolavaggi.Add(autolavaggio);
                 await _ctx.SaveChangesAsync();
 
                 return RedirectToAction("Index", "Home");
-            
-
-            model.Servizi = await _ctx.Servizi.ToListAsync();
-            model.Tipi = await _ctx.Tipi.ToListAsync();
-            return View(model);
+          
         }
 
 
