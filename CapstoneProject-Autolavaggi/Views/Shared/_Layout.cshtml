@@ -29,8 +29,9 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Autolavaggio" asp-action="GetAllAutolavaggi">Lista Autolavaggi</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Autolavaggio" asp-action="DettagliAutolavaggioGestore" asp-route-id="1">Profilo Autolavaggio</a>
+                            <a class="nav-link text-dark" asp-controller="Autolavaggio" asp-action="DettagliAutolavaggioGestore">Profilo Autolavaggio</a>
                         </li>
+
                     </ul>
                     <ul class="navbar-nav ms-auto">
                         @if (User.Identity.IsAuthenticated)

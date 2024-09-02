@@ -2,6 +2,7 @@
 using CapstoneProject_Autolavaggi.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace CapstoneProject_Autolavaggi.Controllers
 {
@@ -33,8 +34,17 @@ namespace CapstoneProject_Autolavaggi.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreaAutolavaggio(AutolavaggioViewModel model)
         {
-            if (ModelState.IsValid)
-            {
+            
+                // Recupera l'email dell'utente autenticato
+                var userEmail = User.Identity.Name;
+                // Trova l'utente nel database usando l'email
+                var user = await _ctx.User.SingleOrDefaultAsync(u => u.Email == userEmail);
+
+                if (user == null)
+                {
+                    return Unauthorized(); // O gestisci il caso in cui l'utente non è trovato
+                }
+
                 var autolavaggio = new Autolavaggio
                 {
                     Nome = model.Autolavaggio.Nome,
@@ -47,21 +57,22 @@ namespace CapstoneProject_Autolavaggi.Controllers
                     OrariDescrizione = model.Autolavaggio.OrariDescrizione,
                     TipoNome = model.Autolavaggio.TipoNome,
                     Servizi = await _ctx.Servizi
-                    .Where(s => model.SelectedServizi.Contains(s.Id))
-                    .ToListAsync()
-
+                        .Where(s => model.SelectedServizi.Contains(s.Id))
+                        .ToListAsync(),
+                    OwnerId = user.Id // Associa l'utente all'autolavaggio
                 };
 
                 _ctx.Autolavaggi.Add(autolavaggio);
                 await _ctx.SaveChangesAsync();
 
                 return RedirectToAction("Index", "Home");
-            }
+            
 
             model.Servizi = await _ctx.Servizi.ToListAsync();
             model.Tipi = await _ctx.Tipi.ToListAsync();
             return View(model);
         }
+
 
 
 
@@ -104,16 +115,32 @@ namespace CapstoneProject_Autolavaggi.Controllers
 
 
 
-        public async Task<IActionResult> DettagliAutolavaggioGestore(int id)
+        public async Task<IActionResult> DettagliAutolavaggioGestore()
         {
+            // Recupera l'email dell'utente loggato
+            var userEmail = User.Identity.Name;
+
+            if (userEmail == null)
+            {
+                return Unauthorized();
+            }
+
+            // Trova l'utente corrispondente all'email
+            var user = await _ctx.User.SingleOrDefaultAsync(u => u.Email == userEmail);
+            if (user == null)
+            {
+                return NotFound("Utente non trovato.");
+            }
+
+            // Trova l'autolavaggio associato all'utente loggato
             var autolavaggio = await _ctx.Autolavaggi
                 .Include(a => a.Servizi)
                 .Include(a => a.Tipo)
-                .FirstOrDefaultAsync(a => a.Id == id);
+                .FirstOrDefaultAsync(a => a.OwnerId == user.Id);
 
             if (autolavaggio == null)
             {
-                return NotFound();
+                return NotFound("Autolavaggio non trovato.");
             }
 
             var viewModel = new AutolavaggioViewModel
@@ -121,12 +148,14 @@ namespace CapstoneProject_Autolavaggi.Controllers
                 Autolavaggio = autolavaggio,
                 Servizi = autolavaggio.Servizi,
                 Tipi = new List<Tipo> { autolavaggio.Tipo },
-                Recensioni = await _ctx.Recensioni.Where(r => r.AutolavaggioId == id).ToListAsync(),
-                Prenotazioni = await _ctx.Prenotazioni.Where(p => p.AutolavaggioId == id).ToListAsync()
+                Recensioni = await _ctx.Recensioni.Where(r => r.AutolavaggioId == autolavaggio.Id).ToListAsync(),
+                Prenotazioni = await _ctx.Prenotazioni.Where(p => p.AutolavaggioId == autolavaggio.Id).ToListAsync()
             };
 
             return View(viewModel);
         }
+
+
 
         [HttpGet]
         public async Task<IActionResult> ModificaAutolavaggio(int id)
