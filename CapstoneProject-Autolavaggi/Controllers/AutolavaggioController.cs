@@ -72,19 +72,43 @@ namespace CapstoneProject_Autolavaggi.Controllers
 
 
 
-        public async Task<IActionResult> GetAllAutolavaggi()
+        public async Task<IActionResult> GetAllAutolavaggi(string tipoFiltro, List<int> serviziFiltro)
         {
-            var autolavaggi = await _ctx.Autolavaggi
-                .Select(a => new
-                {
-                    a.Id,
-                    a.Nome,
-                    a.Immagine
-                })
-                .ToListAsync();
+            // Recupera tutti i tipi e servizi per il filtro
+            var tipi = await _ctx.Tipi.ToListAsync();
+            var servizi = await _ctx.Servizi.ToListAsync();
 
-            return View(autolavaggi);
+            // Crea la query per filtrare gli autolavaggi
+            var query = _ctx.Autolavaggi.AsQueryable();
+
+            if (!string.IsNullOrEmpty(tipoFiltro))
+            {
+                query = query.Where(a => a.TipoNome == tipoFiltro);
+            }
+
+            if (serviziFiltro != null && serviziFiltro.Any())
+            {
+                query = query.Where(a => a.Servizi.Any(s => serviziFiltro.Contains(s.Id)));
+            }
+
+            // Recupera gli autolavaggi filtrati
+            var autolavaggi = await query.ToListAsync();
+
+            // Crea il ViewModel
+            var viewModel = new AutolavaggiFilterViewModel
+            {
+                Autolavaggi = autolavaggi,
+                Tipi = tipi,
+                Servizi = servizi,
+                TipoFiltro = tipoFiltro,
+                ServiziFiltro = serviziFiltro
+            };
+
+            return View(viewModel);
         }
+
+
+
 
 
         public async Task<IActionResult> DettagliAutolavaggio(int id)
