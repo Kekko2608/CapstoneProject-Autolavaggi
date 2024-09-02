@@ -20,3 +20,36 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+
+
+
+
+.rating {
+    direction: rtl;
+    unicode-bidi: bidi-override;
+}
+
+    .rating input {
+        display: none;
+    }
+
+    .rating label {
+        color: #ddd;
+        font-size: 2rem;
+        padding: 0;
+        cursor: pointer;
+    }
+
+        .rating label:before {
+            content: "\2605";
+        }
+
+    .rating input:checked ~ label {
+        color: #f5c518;
+    }
+
+    .rating label:hover,
+    .rating label:hover ~ label {
+        color: #f5c518;
+    }

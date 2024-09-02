@@ -3,7 +3,6 @@
     public class AutolavaggiFilterViewModel
     {
 
-        // Filtri
         public List<Tipo> Tipi { get; set; } = new List<Tipo>();
         public List<Servizio> Servizi { get; set; } = new List<Servizio>();
         public string TipoFiltro { get; set; }

@@ -26,11 +26,17 @@
                         @foreach (var recensione in Model.Recensioni)
                         {
                             <tr>
-                                <td>@recensione.Titolo</td>
-                                <td>@recensione.Voto</td>
+                                 <td>@recensione.Titolo</td>
+                                <td class="rating">
+                                    @for (int i = 1; i <= 5; i++)
+                                    {
+                                        <input type="radio" id="star@i_@recensione.Id" name="rating_@recensione.Id" value="@i" disabled @(i <= recensione.Voto ? "checked" : "") />
+                                        <label for="star@i_@recensione.Id" class="fa fa-star"></label>
+                                    }
+                                </td>
                                 <td>@recensione.Commento</td>
                                 <td>@recensione.Data.ToString("dd/MM/yyyy")</td>
-                                <td>@recensione.User?.Nome </td>
+                                <td>@recensione.User?.Nome</td>
                             </tr>
                         }
                     </tbody>
@@ -51,11 +57,19 @@
                     <input asp-for="NuovaRecensione.Titolo" class="form-control" />
                     <span asp-validation-for="NuovaRecensione.Titolo" class="text-danger"></span>
                 </div>
+
                 <div class="form-group">
-                    <label asp-for="NuovaRecensione.Voto" class="control-label"></label>
-                    <input asp-for="NuovaRecensione.Voto" class="form-control" type="number" min="1" max="5" />
+                    <label class="control-label">Voto</label>
+                    <div class="rating">
+                        @for (int i = 1; i <= 5; i++)
+                        {
+                            <input type="radio" id="star@i" name="NuovaRecensione.Voto" value="@i" />
+                            <label for="star@i" class="fa fa-star"></label>
+                        }
+                    </div>
                     <span asp-validation-for="NuovaRecensione.Voto" class="text-danger"></span>
                 </div>
+
                 <div class="form-group">
                     <label asp-for="NuovaRecensione.Commento" class="control-label"></label>
                     <textarea asp-for="NuovaRecensione.Commento" class="form-control"></textarea>
