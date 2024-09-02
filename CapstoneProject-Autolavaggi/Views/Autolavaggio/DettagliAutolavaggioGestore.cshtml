@@ -1,0 +1,33 @@
+﻿@model CapstoneProject_Autolavaggi.Models.AutolavaggioViewModel
+
+@{
+    ViewData["Title"] = "Dettagli Autolavaggio Gestore";
+}
+
+<h2>@Model.Autolavaggio.Nome</h2>
+
+<div class="container">
+    <p>Indirizzo: @Model.Autolavaggio.Via, @Model.Autolavaggio.Città, @Model.Autolavaggio.CAP</p>
+    <p>Telefono: @Model.Autolavaggio.Telefono</p>
+    <p>Descrizione: @Model.Autolavaggio.Descrizione</p>
+    <p>Orari: @Model.Autolavaggio.OrariDescrizione</p>
+    <img src="@Model.Autolavaggio.Immagine" alt="Immagine Autolavaggio" class="img-fluid" />
+
+    <a asp-action="ModificaAutolavaggio" asp-route-id="@Model.Autolavaggio.Id" class="btn btn-primary">Modifica</a>
+
+    <h4>Recensioni</h4>
+    <ul>
+        @foreach (var recensione in Model.Recensioni)
+        {
+            <li>@recensione.Titolo - @recensione.Voto/5</li>
+        }
+    </ul>
+
+    <h4>Prenotazioni</h4>
+    <ul>
+        @foreach (var prenotazione in Model.Prenotazioni)
+        {
+            <li>Data: @prenotazione.Data - Servizio: @prenotazione.Servizio?.Nome</li>
+        }
+    </ul>
+</div>

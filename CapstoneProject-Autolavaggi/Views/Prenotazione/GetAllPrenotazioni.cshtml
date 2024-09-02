@@ -1,0 +1,31 @@
+﻿@model CapstoneProject_Autolavaggi.Models.PrenotazioniViewModel
+
+@{
+    ViewData["Title"] = "Prenotazioni per @Model.Autolavaggio.Nome";
+}
+
+<h2>Prenotazioni per @Model.Autolavaggio.Nome</h2>
+
+<div class="container">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Servizio</th>
+                <th>Data</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var prenotazione in Model.Prenotazioni)
+            {
+                <tr>
+                    <td>@prenotazione.Id</td>
+                    <td>@prenotazione.Servizio?.Nome</td> <!-- Assicurati che 'Nome' sia una proprietà di Servizio -->
+                    <td>@prenotazione.Data.ToString("dd/MM/yyyy HH:mm")</td>
+                    
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
