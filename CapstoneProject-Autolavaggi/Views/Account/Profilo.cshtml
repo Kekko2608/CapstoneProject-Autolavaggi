@@ -33,6 +33,57 @@
     }
 </form>
 
+<hr />
+
+<h3>Le mie Recensioni</h3>
+@if (Model.Recensioni != null && Model.Recensioni.Any())
+{
+    <ul class="list-group">
+        @foreach (var recensione in Model.Recensioni)
+        {
+            <li class="list-group-item">
+                <strong>@recensione.Titolo</strong><br />
+                @recensione.Commento<br />
+                Voto: @recensione.Voto Stelle<br />
+                Data: @recensione.Data.ToString("dd/MM/yyyy")<br />
+                @if (recensione.Autolavaggio != null)
+                {
+                    <strong>Autolavaggio: @recensione.Autolavaggio.Nome</strong>
+                }
+                else
+                {
+                    <p>Autolavaggio non disponibile</p>
+                }
+            </li>
+        }
+    </ul>
+}
+else
+{
+    <p>Non hai recensioni.</p>
+}
+
+<hr />
+
+<h3>Le mie Prenotazioni</h3>
+@if (Model.Prenotazioni != null && Model.Prenotazioni.Any())
+{
+    <ul class="list-group">
+        @foreach (var prenotazione in Model.Prenotazioni)
+        {
+            <li class="list-group-item">
+                <strong>Autolavaggio: @prenotazione.Autolavaggio.Nome</strong>
+                <p>Data Prenotazione: @prenotazione.Data.ToString("dd/MM/yyyy")</p>
+                <p>Dettagli: @prenotazione.Servizio.Nome</p>
+            </li>
+        }
+    </ul>
+}
+else
+{
+    <p>Non hai prenotazioni.</p>
+}
+
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");

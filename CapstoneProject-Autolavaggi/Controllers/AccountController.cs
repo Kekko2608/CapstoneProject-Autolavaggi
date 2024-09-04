@@ -98,7 +98,7 @@ namespace CapstoneProject_Autolavaggi.Controllers
                     Nome = model.Nome,
                     Email = model.Email,
                     Password = model.Password
-                   
+
                 };
 
                 _ctx.User.Add(newUser);
@@ -130,65 +130,72 @@ namespace CapstoneProject_Autolavaggi.Controllers
 
 
 
+        [HttpGet]
         public async Task<IActionResult> Profilo()
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (userId == null)
+            var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier); 
+
+            if (string.IsNullOrEmpty(userIdString) || !int.TryParse(userIdString, out int userId))
             {
-                return RedirectToAction("Login");
+                return Unauthorized();
             }
 
             var user = await _ctx.User
-                .Include(u => u.UserRoles)
-                .ThenInclude(ur => ur.Role)
-                .SingleOrDefaultAsync(u => u.Id == int.Parse(userId));
+           .Include(u => u.Recensioni)
+               .ThenInclude(r => r.Autolavaggio) 
+           .Include(u => u.Prenotazioni)
+               .ThenInclude(p => p.Autolavaggio)
+                   .ThenInclude(a => a.Servizi)
+           .FirstOrDefaultAsync(u => u.Id == userId);
 
             if (user == null)
             {
                 return NotFound();
             }
 
-            var model = new ProfiloViewModel
+            var viewModel = new ProfiloViewModel
             {
                 Nome = user.Nome,
                 Email = user.Email,
-                NumeroTelefono = user.NumeroTelefono
+                NumeroTelefono = user.NumeroTelefono,
+                Recensioni = user.Recensioni.OrderByDescending(r => r.Data).ToList(),
+                Prenotazioni = user.Prenotazioni.OrderByDescending(p => p.Data).ToList()
             };
 
-            return View(model);
+            return View(viewModel);
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Profilo(ProfiloViewModel model)
         {
-            if (ModelState.IsValid)
+            var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (string.IsNullOrEmpty(userIdString) || !int.TryParse(userIdString, out int userId))
             {
-                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                if (userId == null)
-                {
-                    return RedirectToAction("Login");
-                }
-
-                var user = await _ctx.User.FindAsync(int.Parse(userId));
-                if (user == null)
-                {
-                    return NotFound();
-                }
-
-                user.Nome = model.Nome;
-                user.Email = model.Email;
-                user.NumeroTelefono = model.NumeroTelefono;
-
-                _ctx.Update(user);
-                await _ctx.SaveChangesAsync();
-
-                ViewBag.Message = "Profilo aggiornato con successo.";
+                return Unauthorized();
             }
+
+            var user = await _ctx.User.FindAsync(userId);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            user.Nome = model.Nome;
+            user.Email = model.Email;
+            user.NumeroTelefono = model.NumeroTelefono;
+
+            _ctx.User.Update(user);
+            await _ctx.SaveChangesAsync();
+
+            ViewBag.Message = "Modifiche salvate con successo.";
+
+            model.Recensioni = user.Recensioni.ToList();
+            model.Prenotazioni = user.Prenotazioni.ToList();
 
             return View(model);
         }
 
     }
-
 }
