@@ -47,6 +47,7 @@
         <ul class="list-unstyled">
             @foreach (var prenotazione in Model.Prenotazioni)
             {
+                <li>@prenotazione.User.Nome</li>
                 <li class="mb-2">Data: @prenotazione.Data.ToString("dd/MM/yyyy") - Servizio: @prenotazione.Servizio?.Nome</li>
             }
         </ul>
