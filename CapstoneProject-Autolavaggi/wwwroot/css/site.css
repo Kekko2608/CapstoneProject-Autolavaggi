@@ -23,22 +23,17 @@ body {
 
 
 
-
-
 .rating {
     direction: rtl;
     unicode-bidi: bidi-override;
 }
-
-    .rating input {
-        display: none;
-    }
 
     .rating label {
         color: #ddd;
         font-size: 2rem;
         padding: 0;
         cursor: pointer;
+        display: inline-block;
     }
 
         .rating label:before {
@@ -46,6 +41,11 @@ body {
         }
 
     .rating input:checked ~ label {
+        color: #ddd;
+    }
+
+    .rating input:checked + label,
+    .rating input:checked + label ~ label {
         color: #f5c518;
     }
 
