@@ -36,6 +36,7 @@
 <hr />
 
 <h3>Le mie Recensioni</h3>
+
 @if (Model.Recensioni != null && Model.Recensioni.Any())
 {
     <ul class="list-group">
@@ -44,7 +45,7 @@
             <li class="list-group-item">
                 <strong>@recensione.Titolo</strong><br />
                 @recensione.Commento<br />
-                Voto: @recensione.Voto Stelle<br />
+                Voto: @recensione.Voto<br />
                 Data: @recensione.Data.ToString("dd/MM/yyyy")<br />
                 @if (recensione.Autolavaggio != null)
                 {
@@ -54,6 +55,12 @@
                 {
                     <p>Autolavaggio non disponibile</p>
                 }
+
+                <!-- Modulo per eliminare la recensione -->
+                <form asp-controller="Recensione" asp-action="EliminaRecensione" method="post" class="d-inline">
+                    <input type="hidden" name="recensioneId" value="@recensione.Id" />
+                    <button type="submit" class="btn btn-danger btn-sm">Elimina</button>
+                </form>
             </li>
         }
     </ul>

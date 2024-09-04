@@ -85,4 +85,28 @@ public class RecensioneController : Controller
             return StatusCode(500, new { message = "Si è verificato un problema durante l'aggiunta della recensione." });
         }
     }
+
+    [HttpPost]
+    public async Task<IActionResult> EliminaRecensione(int recensioneId)
+    {
+        var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+        if (string.IsNullOrEmpty(userIdString) || !int.TryParse(userIdString, out int userId))
+        {
+            return Unauthorized();
+        }
+
+        var recensione = await _ctx.Recensioni
+            .FirstOrDefaultAsync(r => r.Id == recensioneId && r.UserId == userId);
+
+        if (recensione == null)
+        {
+            return NotFound(); // O gestisci come preferisci se la recensione non viene trovata
+        }
+
+        _ctx.Recensioni.Remove(recensione);
+        await _ctx.SaveChangesAsync();
+
+        return RedirectToAction("Profilo", "Account"); 
+    }
 }
