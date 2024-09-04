@@ -126,5 +126,69 @@ namespace CapstoneProject_Autolavaggi.Controllers
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Login");
         }
+
+
+
+
+        public async Task<IActionResult> Profilo()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (userId == null)
+            {
+                return RedirectToAction("Login");
+            }
+
+            var user = await _ctx.User
+                .Include(u => u.UserRoles)
+                .ThenInclude(ur => ur.Role)
+                .SingleOrDefaultAsync(u => u.Id == int.Parse(userId));
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var model = new ProfiloViewModel
+            {
+                Nome = user.Nome,
+                Email = user.Email,
+                NumeroTelefono = user.NumeroTelefono
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Profilo(ProfiloViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                if (userId == null)
+                {
+                    return RedirectToAction("Login");
+                }
+
+                var user = await _ctx.User.FindAsync(int.Parse(userId));
+                if (user == null)
+                {
+                    return NotFound();
+                }
+
+                user.Nome = model.Nome;
+                user.Email = model.Email;
+                user.NumeroTelefono = model.NumeroTelefono;
+
+                _ctx.Update(user);
+                await _ctx.SaveChangesAsync();
+
+                ViewBag.Message = "Profilo aggiornato con successo.";
+            }
+
+            return View(model);
+        }
+
     }
+
 }

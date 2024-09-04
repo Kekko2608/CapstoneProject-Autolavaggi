@@ -19,7 +19,7 @@ namespace CapstoneProject_Autolavaggi.Models.Auth
         [Required]
         [StringLength(20)]
         public string Password { get; set; }
-        public int NumeroTelefono { get; set; }
+        public string NumeroTelefono { get; set; }
         public ICollection<Prenotazione> Prenotazioni { get; set; }
         public ICollection<Recensione> Recensioni { get; set; }
         public List<UserRole> UserRoles { get; set; } = new List<UserRole>();
