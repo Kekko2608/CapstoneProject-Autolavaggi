@@ -4,52 +4,60 @@
     ViewData["Title"] = "Dettagli Autolavaggio";
 }
 
-<h1>@Model.Autolavaggio.Nome</h1>
+<div class="container my-5">
+    <h1 class="text-center mb-4">@Model.Autolavaggio.Nome</h1>
 
-@if (!string.IsNullOrEmpty(Model.Autolavaggio.GoogleMapsUrl))
-{
-    <iframe id="mappaAutolavaggio"
-            width="600"
-            height="450"
-            src="@Model.Autolavaggio.GoogleMapsUrl"
-            allowfullscreen=""
-            loading="lazy">
-    </iframe>
-}
-else
-{
-    <p>Mappa non disponibile per questo autolavaggio.</p>
-}
+    @if (!string.IsNullOrEmpty(Model.Autolavaggio.GoogleMapsUrl))
+    {
+        <div class="mb-4">
+            <iframe id="mappaAutolavaggio"
+                    class="w-100"
+                    height="450"
+                    src="@Model.Autolavaggio.GoogleMapsUrl"
+                    allowfullscreen=""
+                    loading="lazy">
+            </iframe>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-warning" role="alert">
+            Mappa non disponibile per questo autolavaggio.
+        </div>
+    }
 
-<div class="container">
     <div class="row">
-        <div class="col-md-6">
-            <img src="@Model.Autolavaggio.Immagine" class="img-fluid" alt="Immagine di @Model.Autolavaggio.Nome" />
+        <div class="col-md-6 mb-4">
+            <img src="@Model.Autolavaggio.Immagine" class="img-fluid rounded shadow-sm" alt="Immagine di @Model.Autolavaggio.Nome" />
+            <h2 class="fw-bold mt-3">Descrizione: </h2>
+            <p class="fs-4">@Model.Autolavaggio.Descrizione</p>
         </div>
         <div class="col-md-6">
-            <h3>Dettagli</h3>
-            <p><strong>Via:</strong> @Model.Autolavaggio.Via</p>
-            <p><strong>Città:</strong> @Model.Autolavaggio.Città</p>
-            <p><strong>CAP:</strong> @Model.Autolavaggio.CAP</p>
-            <p><strong>Telefono:</strong> @Model.Autolavaggio.Telefono</p>
-            <p><strong>Tipo:</strong> @(Model.Autolavaggio.TipoNome ?? "N/A")</p>
-            <p><strong>Descrizione:</strong> @Model.Autolavaggio.Descrizione</p>
-            <p><strong>Orari:</strong> @Model.Autolavaggio.OrariDescrizione</p>
+            <div class="bg-light p-4 rounded border">
+                <h3 class="mb-3">Dettagli</h3>
+                <p><strong>Via:</strong> @Model.Autolavaggio.Via</p>
+                <p><strong>Città:</strong> @Model.Autolavaggio.Città</p>
+                <p><strong>CAP:</strong> @Model.Autolavaggio.CAP</p>
+                <p><strong>Telefono:</strong> @Model.Autolavaggio.Telefono</p>
+                <p><strong>Tipo:</strong> @(Model.Autolavaggio.TipoNome ?? "N/A")</p>
+                
+                <p><strong>Orari:</strong> @Model.Autolavaggio.OrariDescrizione</p>
 
-            <h4>Servizi Offerti</h4>
-            <ul>
-                @foreach (var servizio in Model.Servizi)
-                {
-                    <li>
-                        @servizio.Nome - @servizio.Costo €
-                        <a href="@Url.Action("Prenotazione", "Prenotazione", new { servizioId = servizio.Id, autolavaggioId = Model.Autolavaggio.Id })" class="btn btn-success btn-sm">Prenota</a>
-                    </li>
-                }
-            </ul>
+                <h4 class="mt-4 mb-3">Servizi Offerti</h4>
+                <ul class="list-group">
+                    @foreach (var servizio in Model.Servizi)
+                    {
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            @servizio.Nome
+                            <span class="badge bg-primary rounded-pill">@servizio.Costo €</span>
+                            <a href="@Url.Action("Prenotazione", "Prenotazione", new { servizioId = servizio.Id, autolavaggioId = Model.Autolavaggio.Id })" class="btn btn-success btn-sm ms-2">Prenota</a>
+                        </li>
+                    }
+                </ul>
 
-
-            <!-- Link per andare alla pagina delle recensioni -->
-            <a href="@Url.Action("Recensioni", "Recensione", new { id = Model.Autolavaggio.Id })" class="btn btn-primary">Visualizza e Aggiungi Recensioni</a>
+                <a href="@Url.Action("Recensioni", "Recensione", new { id = Model.Autolavaggio.Id })" class="btn btn-primary mt-4 w-100">Visualizza e Aggiungi Recensioni</a>
+            </div>
         </div>
     </div>
 </div>
+

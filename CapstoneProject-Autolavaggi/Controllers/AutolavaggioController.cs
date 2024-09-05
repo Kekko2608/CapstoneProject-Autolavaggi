@@ -74,7 +74,7 @@ namespace CapstoneProject_Autolavaggi.Controllers
 
 
 
-        public async Task<IActionResult> GetAllAutolavaggi(string tipoFiltro, List<int> serviziFiltro)
+        public async Task<IActionResult> GetAllAutolavaggi(string tipoFiltro, List<int> serviziFiltro, string cittàFiltro)
         {
             // Recupera tutti i tipi e servizi per il filtro
             var tipi = await _ctx.Tipi.ToListAsync();
@@ -93,6 +93,11 @@ namespace CapstoneProject_Autolavaggi.Controllers
                 query = query.Where(a => a.Servizi.Any(s => serviziFiltro.Contains(s.Id)));
             }
 
+            if (!string.IsNullOrEmpty(cittàFiltro))
+            {
+                query = query.Where(a => a.Città == cittàFiltro);
+            }
+
             // Recupera gli autolavaggi filtrati
             var autolavaggi = await query.ToListAsync();
 
@@ -103,11 +108,13 @@ namespace CapstoneProject_Autolavaggi.Controllers
                 Tipi = tipi,
                 Servizi = servizi,
                 TipoFiltro = tipoFiltro,
-                ServiziFiltro = serviziFiltro
+                ServiziFiltro = serviziFiltro,
+                CittàFiltro = cittàFiltro
             };
 
             return View(viewModel);
         }
+
 
 
 

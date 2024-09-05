@@ -7,7 +7,7 @@
         public List<Servizio> Servizi { get; set; } = new List<Servizio>();
         public string TipoFiltro { get; set; }
         public List<int> ServiziFiltro { get; set; } = new List<int>();
-
+        public string CittàFiltro { get; set; }
         // Risultati filtrati
         public List<Autolavaggio> Autolavaggi { get; set; } = new List<Autolavaggio>();
 

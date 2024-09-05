@@ -4,64 +4,72 @@
     ViewData["Title"] = "Tutti gli Autolavaggi";
 }
 
-<h1>@ViewData["Title"]</h1>
+<div class="container my-5">
+    <h1 class="text-center mb-4">Cerca un Autolavaggio</h1>
 
-<form method="get" action="@Url.Action("GetAllAutolavaggi")">
-    <div class="form-row">
-        <div class="form-group col-md-4">
-            <label for="TipoFiltro">Tipo di Autolavaggio</label>
-            <select id="TipoFiltro" name="tipoFiltro" class="form-control">
-                <option value="">Seleziona tipo di autolavaggio</option>
-                @foreach (var tipo in Model.Tipi)
-                {
-                    <option value="@tipo.Nome">@tipo.Nome</option>
-                }
-            </select>
-        </div>
-        <div class="form-group col-md-4">
-            <label for="ServiziFiltro">Servizi Offerti</label>
-            <select id="ServiziFiltro" name="serviziFiltro" class="form-control">
-                <option value="">Seleziona tipo di servizio desiderato</option>
-                @foreach (var servizio in Model.Servizi)
-                {
-                    <option value="@servizio.Id">@servizio.Nome</option>
-                }
-            </select>
-        </div>
-    </div>
-    <button type="submit" class="btn btn-primary">Filtra</button>
-</form>
+    <form method="get" action="@Url.Action("GetAllAutolavaggi")" class="mb-5">
+        <div class="row">
+            <div class="col-md-12 mb-4">
+                <label for="CittàFiltro" class="form-label fs-4">Trova gli autolavaggi più vicino a te! Inserisci la tua città:</label>
+                <input type="text" id="CittàFiltro" name="cittàFiltro" class="form-control" placeholder="Inserisci la città" value="@Model.CittàFiltro" />
+            </div>
 
-<div class="container">
+            <div class="mb-4" >
+                <label for="TipoFiltro" class="form-label fs-4">Tipo di Autolavaggio</label>
+                <select id="TipoFiltro" name="tipoFiltro" class="form-select">
+                    <option value="">Seleziona tipo di autolavaggio</option>
+                    @foreach (var tipo in Model.Tipi)
+                    {
+                        <option value="@tipo.Nome">@tipo.Nome</option>
+                    }
+                </select>
+            </div>
+
+            <div class="mb-4">
+                <label for="ServiziFiltro" class="form-label fs-4 ">Servizi Offerti</label>
+                <select id="ServiziFiltro" name="serviziFiltro" class="form-select" multiple>
+                    @foreach (var servizio in Model.Servizi)
+                    {
+                        <option value="@servizio.Id">@servizio.Nome</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg">Filtra</button>
+    </form>
+
     <div class="row">
         @if (Model.Autolavaggi != null && Model.Autolavaggi.Any())
         {
             @foreach (var autolavaggio in Model.Autolavaggi)
             {
                 <div class="col-md-4 mb-4">
-                    <a href="@Url.Action("DettagliAutolavaggio", "Autolavaggio", new { id = autolavaggio.Id })" class="text-decoration-none">
-                        <div class="card">
-                            @if (!string.IsNullOrEmpty(autolavaggio.Immagine))
-                            {
-                                <img src="@autolavaggio.Immagine" class="card-img-top" alt="Immagine di @autolavaggio.Nome" />
-                            }
-                            else
-                            {
-                                <img src="https://via.placeholder.com/60" class="card-img-top" alt="Immagine di @autolavaggio.Nome" />
-                            }
-                            <div class="card-body">
-                                <h5 class="card-title text-dark">@autolavaggio.Nome</h5>
-                                <!-- Aggiungi il pulsante Modifica -->
-                                <a href="@Url.Action("ModificaAutolavaggio", "Autolavaggio", new { id = autolavaggio.Id })" class="btn btn-warning mt-2">Modifica</a>
-                            </div>
+                    <div class="card">
+                        @if (!string.IsNullOrEmpty(autolavaggio.Immagine))
+                        {
+                            <img src="@autolavaggio.Immagine" class="card-img-top" alt="Immagine di @autolavaggio.Nome" />
+                        }
+                        else
+                        {
+                            <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="Immagine di @autolavaggio.Nome" />
+                        }
+                        <div class="card-body">
+                            <h5 class="card-title">@autolavaggio.Nome</h5>
+                            <a href="@Url.Action("DettagliAutolavaggio", "Autolavaggio", new { id = autolavaggio.Id })" class="btn btn-primary">Dettagli</a>
+                            <a href="@Url.Action("ModificaAutolavaggio", "Autolavaggio", new { id = autolavaggio.Id })" class="btn btn-warning mt-2">Modifica</a>
                         </div>
-                    </a>
+                    </div>
                 </div>
             }
         }
         else
         {
-            <p>Nessun autolavaggio trovato con i criteri di ricerca specificati.</p>
+            <div class="col-12">
+                <div class="alert alert-info" role="alert">
+                    Nessun autolavaggio trovato con i criteri di ricerca specificati.
+                </div>
+            </div>
         }
     </div>
 </div>
+
