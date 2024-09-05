@@ -2,11 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using CapstoneProject_Autolavaggi.Context;
 using CapstoneProject_Autolavaggi.Models;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 
 public class RecensioneController : Controller
@@ -18,7 +13,7 @@ public class RecensioneController : Controller
         _ctx = context;
     }
 
-    // GET: /Recensione/Recensioni/{id}
+    
     public async Task<IActionResult> Recensioni(int id)
     {
         var autolavaggio = await _ctx.Autolavaggi
@@ -41,7 +36,7 @@ public class RecensioneController : Controller
         return View(viewModel);
     }
 
-    // POST: /Recensione/Aggiungi
+   
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> AggiungiRecensione(AutolavaggioViewModel model)
@@ -101,7 +96,7 @@ public class RecensioneController : Controller
 
         if (recensione == null)
         {
-            return NotFound(); // O gestisci come preferisci se la recensione non viene trovata
+            return NotFound(); 
         }
 
         _ctx.Recensioni.Remove(recensione);

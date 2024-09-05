@@ -29,6 +29,6 @@ namespace CapstoneProject_Autolavaggi.Models
         public List<Prenotazione>? Prenotazioni { get; set; } = new List<Prenotazione>();
         public List<Recensione>? Recensioni { get; set; } = new List<Recensione>();
         public List<Servizio>? Servizi { get; set; } = new List<Servizio>();
-
+        public string? GoogleMapsUrl { get; set; }
     }
 }

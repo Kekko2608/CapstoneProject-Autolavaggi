@@ -14,17 +14,17 @@
                 <option value="">Seleziona tipo di autolavaggio</option>
                 @foreach (var tipo in Model.Tipi)
                 {
-                    <option value="@tipo.Nome" >@tipo.Nome</option>
+                    <option value="@tipo.Nome">@tipo.Nome</option>
                 }
             </select>
         </div>
         <div class="form-group col-md-4">
             <label for="ServiziFiltro">Servizi Offerti</label>
-            <select id="ServiziFiltro" name="serviziFiltro" class="form-control" >
+            <select id="ServiziFiltro" name="serviziFiltro" class="form-control">
                 <option value="">Seleziona tipo di servizio desiderato</option>
                 @foreach (var servizio in Model.Servizi)
                 {
-                    <option value="@servizio.Id" >@servizio.Nome</option>
+                    <option value="@servizio.Id">@servizio.Nome</option>
                 }
             </select>
         </div>
@@ -51,6 +51,8 @@
                             }
                             <div class="card-body">
                                 <h5 class="card-title text-dark">@autolavaggio.Nome</h5>
+                                <!-- Aggiungi il pulsante Modifica -->
+                                <a href="@Url.Action("ModificaAutolavaggio", "Autolavaggio", new { id = autolavaggio.Id })" class="btn btn-warning mt-2">Modifica</a>
                             </div>
                         </div>
                     </a>

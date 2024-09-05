@@ -34,6 +34,11 @@
     </div>
 
     <div class="form-group">
+        <label for="GoogleMapsUrl">URL di Google Maps embed (facoltativo):</label>
+        <input type="url" class="form-control" id="GoogleMapsUrl" name="GoogleMapsUrl" value="@Model.Autolavaggio.GoogleMapsUrl" />
+    </div>
+
+    <div class="form-group">
         <label asp-for="Autolavaggio.Telefono" class="control-label"></label>
         <input asp-for="Autolavaggio.Telefono" class="form-control" />
         <span asp-validation-for="Autolavaggio.Telefono" class="text-danger"></span>

@@ -21,6 +21,7 @@ namespace CapstoneProject_Autolavaggi.Controllers
         {
             var viewmodel = new AutolavaggioViewModel
             {
+                Autolavaggio = new Autolavaggio(),
                 Tipi = await _ctx.Tipi.ToListAsync(),
                 Servizi = await _ctx.Servizi.ToListAsync(),
 
@@ -51,6 +52,7 @@ namespace CapstoneProject_Autolavaggi.Controllers
                     Via = model.Autolavaggio.Via,
                     Città = model.Autolavaggio.Città,
                     CAP = model.Autolavaggio.CAP,
+                    GoogleMapsUrl = model.Autolavaggio.GoogleMapsUrl,
                     Telefono = model.Autolavaggio.Telefono,
                     Descrizione = model.Autolavaggio.Descrizione,
                     Immagine = model.Autolavaggio.Immagine,
@@ -220,6 +222,7 @@ namespace CapstoneProject_Autolavaggi.Controllers
                 autolavaggio.Via = model.Autolavaggio.Via;
                 autolavaggio.Città = model.Autolavaggio.Città;
                 autolavaggio.CAP = model.Autolavaggio.CAP;
+                autolavaggio.GoogleMapsUrl = model.Autolavaggio.GoogleMapsUrl;
                 autolavaggio.Telefono = model.Autolavaggio.Telefono;
                 autolavaggio.Descrizione = model.Autolavaggio.Descrizione;
                 autolavaggio.Immagine = model.Autolavaggio.Immagine;
@@ -251,11 +254,7 @@ namespace CapstoneProject_Autolavaggi.Controllers
                 return RedirectToAction("DettagliAutolavaggio", new { id = autolavaggio.Id });
             
 
-            // Se il modello non è valido, ricarica le liste dei servizi e dei tipi
-            model.Servizi = await _ctx.Servizi.ToListAsync();
-            model.Tipi = await _ctx.Tipi.ToListAsync();
-
-            return View(model);
+           
         }
 
 

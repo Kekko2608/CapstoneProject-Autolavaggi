@@ -6,6 +6,21 @@
 
 <h1>@Model.Autolavaggio.Nome</h1>
 
+@if (!string.IsNullOrEmpty(Model.Autolavaggio.GoogleMapsUrl))
+{
+    <iframe id="mappaAutolavaggio"
+            width="600"
+            height="450"
+            src="@Model.Autolavaggio.GoogleMapsUrl"
+            allowfullscreen=""
+            loading="lazy">
+    </iframe>
+}
+else
+{
+    <p>Mappa non disponibile per questo autolavaggio.</p>
+}
+
 <div class="container">
     <div class="row">
         <div class="col-md-6">
