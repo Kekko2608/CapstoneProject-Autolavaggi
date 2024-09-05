@@ -4,53 +4,65 @@
     ViewData["Title"] = "Dettagli Autolavaggio Gestore";
 }
 
-<h2>@Model.Autolavaggio.Nome</h2>
+<div class="container mt-5">
+    <h2 class="mb-4">@Model.Autolavaggio.Nome</h2>
 
-<div class="container">
-    <p>Indirizzo: @Model.Autolavaggio.Via, @Model.Autolavaggio.Città, @Model.Autolavaggio.CAP</p>
-    <p>Telefono: @Model.Autolavaggio.Telefono</p>
-    <p>Descrizione: @Model.Autolavaggio.Descrizione</p>
-    <p>Orari: @Model.Autolavaggio.OrariDescrizione</p>
-    <img src="@Model.Autolavaggio.Immagine" alt="Immagine Autolavaggio" class="img-fluid" />
+    <!-- Sezione Dettagli Autolavaggio -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <img src="@Model.Autolavaggio.Immagine" alt="Immagine Autolavaggio" class="img-fluid rounded shadow-sm" />
+        </div>
+        <div class="col-md-6">
+            <p><strong>Indirizzo:</strong> @Model.Autolavaggio.Via, @Model.Autolavaggio.Città, @Model.Autolavaggio.CAP</p>
+            <p><strong>Telefono:</strong> @Model.Autolavaggio.Telefono</p>
+            <p><strong>Descrizione:</strong> @Model.Autolavaggio.Descrizione</p>
+            <p><strong>Orari:</strong> @Model.Autolavaggio.OrariDescrizione</p>
+            <a asp-action="ModificaAutolavaggio" asp-route-id="@Model.Autolavaggio.Id" class="btn btn-primary">Modifica</a>
+        </div>
+    </div>
 
-    <a asp-action="ModificaAutolavaggio" asp-route-id="@Model.Autolavaggio.Id" class="btn btn-primary">Modifica</a>
-
-    <h4>Recensioni</h4>
+    <!-- Sezione Recensioni -->
+    <h4 class="mb-4">Recensioni</h4>
     @if (Model.Recensioni.Any())
     {
-        <ul class="list-unstyled">
+        <div class="list-group col-6">
             @foreach (var recensione in Model.Recensioni)
             {
-                <li class="mb-3">
-                    <h5>@recensione.Titolo</h5>
-                    <div class="rating">
+                <div class="list-group-item mb-3 border-light">
+                    <!-- Stelle di valutazione -->
+                    <div class="rating mb-2">
                         @for (int i = 1; i <= 5; i++)
                         {
                             <input type="radio" id="star@i_@recensione.Id" name="rating_@recensione.Id" value="@i" disabled @(i <= recensione.Voto ? "checked" : "") />
                             <label for="star@i_@recensione.Id" class="fa fa-star"></label>
                         }
                     </div>
+                    <h5 class="mb-1">@recensione.Titolo</h5>
                     <p>@recensione.Commento</p>
-                    <p><small>@recensione.Data.ToString("dd/MM/yyyy")</small></p>
-                </li>
+                    <p><small class="text-muted">Data: @recensione.Data.ToString("dd/MM/yyyy")</small></p>
+                </div>
             }
-        </ul>
+        </div>
     }
     else
     {
         <p>Nessuna recensione disponibile.</p>
     }
 
-    <h4>Prenotazioni</h4>
+    <!-- Sezione Prenotazioni -->
+    <h4 class="mt-4 mb-4">Prenotazioni</h4>
     @if (Model.Prenotazioni.Any())
     {
-        <ul class="list-unstyled">
+        <div class="list-group">
             @foreach (var prenotazione in Model.Prenotazioni)
             {
-                <li>@prenotazione.User.Nome</li>
-                <li class="mb-2">Data: @prenotazione.Data.ToString("dd/MM/yyyy") - Servizio: @prenotazione.Servizio?.Nome</li>
+                <div class="list-group-item mb-2 border-light">
+                    <p><strong>Utente:</strong> @prenotazione.User.Nome</p>
+                    <p><strong>Data:</strong> @prenotazione.Data.ToString("dd/MM/yyyy")</p>
+                    <p><strong>Servizio:</strong> @prenotazione.Servizio?.Nome</p>
+                </div>
             }
-        </ul>
+        </div>
     }
     else
     {

@@ -75,3 +75,11 @@ body {
     font-size: 2rem;
     color: #007bff;
 }
+
+.blue {
+    color:darkblue;
+}
+
+.bg-blue{
+    background-color:darkblue;
+}
