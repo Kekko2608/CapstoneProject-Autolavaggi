@@ -25,7 +25,7 @@ body {
 
 .rating {
     direction: ltr;
-    unicode-bidi: bidi-override;
+    
 }
 
     .rating label {
@@ -40,17 +40,17 @@ body {
             content: "\2605";
         }
 
-    .rating input:checked ~ label {
+    .rating input:checked  {
         color: #ddd;
     }
 
     .rating input:checked + label,
-    .rating input:checked + label ~ label {
+    .rating input:checked  {
         color: #f5c518;
     }
 
-    .rating label:hover,
-    .rating label:hover ~ label {
+    
+    .rating label:hover {
         color: #f5c518;
     }
 
