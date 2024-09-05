@@ -83,3 +83,10 @@ body {
 .bg-blue{
     background-color:darkblue;
 }
+
+
+
+#logo {
+    max-height: auto; 
+    width: 6em;
+}
