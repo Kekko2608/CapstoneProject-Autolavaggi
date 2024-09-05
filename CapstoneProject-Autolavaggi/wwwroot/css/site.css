@@ -24,7 +24,7 @@ body {
 
 
 .rating {
-    direction: rtl;
+    direction: ltr;
     unicode-bidi: bidi-override;
 }
 
@@ -90,3 +90,4 @@ body {
     max-height: auto; 
     width: 6em;
 }
+
