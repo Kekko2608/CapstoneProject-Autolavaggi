@@ -91,3 +91,8 @@ body {
     width: 6em;
 }
 
+
+.bg-schiuma {
+    background-image: url('../images/schiuma.jpg');
+    
+}

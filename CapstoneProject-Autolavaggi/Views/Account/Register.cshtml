@@ -4,11 +4,11 @@
 @{
     ViewData["Title"] = "Registrazione";
 }
-
-<div class="d-flex justify-content-center align-items-center vh-100">
+<body class="bg-schiuma">
+    <div class="d-flex justify-content-center align-items-center vh-100">
     <div class="card p-4 shadow-lg" style="max-width: 500px; width: 100%;">
         <div class="card-body text-black">
-            <h3 class="text-center mb-4">@ViewData["Title"]</h3>
+            <h3 class="text-center mb-4">REGISTRAZIONE</h3>
 
             <form asp-action="Register" method="post">
                 @Html.AntiForgeryToken()
@@ -47,9 +47,10 @@
                 </div>
 
                 <div class="d-grid">
-                    <button type="submit" class="btn">Registrati</button>
+                    <button type="submit" class="btn bg-blue text-white">Registrati</button>
                 </div>
             </form>
         </div>
     </div>
-</div>
+    </div>
+</body>

@@ -13,16 +13,16 @@
             <img src="@Model.Autolavaggio.Immagine" alt="Immagine Autolavaggio" class="img-fluid rounded shadow-sm" />
         </div>
         <div class="col-md-6">
-            <p><strong>Indirizzo:</strong> @Model.Autolavaggio.Via, @Model.Autolavaggio.Città, @Model.Autolavaggio.CAP</p>
-            <p><strong>Telefono:</strong> @Model.Autolavaggio.Telefono</p>
-            <p><strong>Descrizione:</strong> @Model.Autolavaggio.Descrizione</p>
-            <p><strong>Orari:</strong> @Model.Autolavaggio.OrariDescrizione</p>
-            <a asp-action="ModificaAutolavaggio" asp-route-id="@Model.Autolavaggio.Id" class="btn btn-primary">Modifica</a>
+            <p class="my-5"><strong><i class="bi bi-geo-alt-fill"></i> INDIRIZZO:</strong> @Model.Autolavaggio.Via, @Model.Autolavaggio.Città, @Model.Autolavaggio.CAP</p>
+            <p class="my-5"><strong><i class="bi bi-telephone-fill"></i> TELEFONO:</strong> @Model.Autolavaggio.Telefono</p>
+            <p class="my-5"><strong>DESCRIZIONE:</strong> @Model.Autolavaggio.Descrizione</p>
+            <p class="my-5"><strong><i class="bi bi-alarm-fill"></i> ORARI:</strong> @Model.Autolavaggio.OrariDescrizione</p>
+            <a asp-action="ModificaAutolavaggio" asp-route-id="@Model.Autolavaggio.Id" class="btn bg-blue text-white">Modifica</a>
         </div>
     </div>
-
+    <hr />
     <!-- Sezione Recensioni -->
-    <h4 class="mb-4">Recensioni</h4>
+    <h4 class="mb-4">Recensioni Autolavaggio</h4>
     @if (Model.Recensioni.Any())
     {
         <div class="list-group col-6">
@@ -37,7 +37,9 @@
                             <label for="star@i_@recensione.Id" class="fa fa-star"></label>
                         }
                     </div>
-                    <h5 class="mb-1">@recensione.Titolo</h5>
+                    <h5 class="mb-1 text-primary">@recensione.Titolo</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Scritta da: @recensione.User?.Nome</h6>
+
                     <p>@recensione.Commento</p>
                     <p><small class="text-muted">Data: @recensione.Data.ToString("dd/MM/yyyy")</small></p>
                 </div>
@@ -48,9 +50,9 @@
     {
         <p>Nessuna recensione disponibile.</p>
     }
-
+    <hr />
     <!-- Sezione Prenotazioni -->
-    <h4 class="mt-4 mb-4">Prenotazioni</h4>
+    <h4 class="mt-4 mb-4">Prenotazioni clienti</h4>
     @if (Model.Prenotazioni.Any())
     {
         <div class="list-group">
