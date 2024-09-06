@@ -1,11 +1,13 @@
 ﻿using CapstoneProject_Autolavaggi.Context;
 using CapstoneProject_Autolavaggi.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 
 namespace CapstoneProject_Autolavaggi.Controllers
 {
+    [Authorize]
     public class AutolavaggioController : Controller
     {
 

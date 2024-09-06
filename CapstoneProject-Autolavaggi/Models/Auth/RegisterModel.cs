@@ -17,7 +17,7 @@ namespace CapstoneProject_Autolavaggi.Models.Auth
         public string Password { get; set; }
 
         [Required]
-        [Compare("Password")]
+        [Compare("Password", ErrorMessage = "Le password non corrispondono.")]
         public string ConfirmPassword { get; set; }
     }
 }

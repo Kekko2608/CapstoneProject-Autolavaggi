@@ -22,6 +22,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 builder.Services
     .AddAuthorizationBuilder()
     .AddPolicy("Autenticato", cfg => cfg.RequireAuthenticatedUser())
+    .AddPolicy("Cliente", cfg => cfg.RequireRole("Cliente"))
     .AddPolicy("Gestore", cfg => cfg.RequireRole("Gestore"))
     .AddPolicy("AdminOnly", cfg => cfg.RequireRole("Amministratore"));
 
