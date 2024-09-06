@@ -24,7 +24,7 @@ builder.Services
     .AddPolicy("Autenticato", cfg => cfg.RequireAuthenticatedUser())
     .AddPolicy("Cliente", cfg => cfg.RequireRole("Cliente"))
     .AddPolicy("Gestore", cfg => cfg.RequireRole("Gestore"))
-    .AddPolicy("AdminOnly", cfg => cfg.RequireRole("Amministratore"));
+    .AddPolicy("Amministratore", cfg => cfg.RequireRole("Amministratore"));
 
 var app = builder.Build();
 

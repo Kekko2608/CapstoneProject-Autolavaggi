@@ -5,7 +5,7 @@
 }
 
 <div class="container mt-5">
-    <h2 class="mb-4">@Model.Autolavaggio.Nome</h2>
+    <h1 class="mb-4 font">@Model.Autolavaggio.Nome</h1>
 
     <!-- Sezione Dettagli Autolavaggio -->
     <div class="row mb-4">
@@ -15,36 +15,44 @@
         <div class="col-md-6">
             <p class="my-5"><strong><i class="bi bi-geo-alt-fill"></i> INDIRIZZO:</strong> @Model.Autolavaggio.Via, @Model.Autolavaggio.Città, @Model.Autolavaggio.CAP</p>
             <p class="my-5"><strong><i class="bi bi-telephone-fill"></i> TELEFONO:</strong> @Model.Autolavaggio.Telefono</p>
-            <p class="my-5"><strong>DESCRIZIONE:</strong> @Model.Autolavaggio.Descrizione</p>
+            <p class="my-5"><strong><i class="bi bi-pen-fill"></i> DESCRIZIONE:</strong> @Model.Autolavaggio.Descrizione</p>
             <p class="my-5"><strong><i class="bi bi-alarm-fill"></i> ORARI:</strong> @Model.Autolavaggio.OrariDescrizione</p>
             <a asp-action="ModificaAutolavaggio" asp-route-id="@Model.Autolavaggio.Id" class="btn bg-blue text-white">Modifica</a>
         </div>
     </div>
     <hr />
     <!-- Sezione Recensioni -->
-    <h4 class="mb-4">Recensioni Autolavaggio</h4>
+    <h4 class="mb-4 blue">RECENSIONI AUTOLAVAGGIO</h4>
     @if (Model.Recensioni.Any())
     {
-        <div class="list-group col-6">
+        <div class="row">
             @foreach (var recensione in Model.Recensioni)
             {
-                <div class="list-group-item mb-3 border-light">
-                    <!-- Stelle di valutazione -->
-                    <div class="rating mb-2">
-                        @for (int i = 1; i <= 5; i++)
-                        {
-                            <input type="radio" id="star@i_@recensione.Id" name="rating_@recensione.Id" value="@i" disabled @(i <= recensione.Voto ? "checked" : "") />
-                            <label for="star@i_@recensione.Id" class="fa fa-star"></label>
-                        }
-                    </div>
-                    <h5 class="mb-1 text-primary">@recensione.Titolo</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Scritta da: @recensione.User?.Nome</h6>
+                <div class="col-md-6 mb-4">
+                    <div class="card border-light shadow-sm">
+                        <div class="card-body">
+                            <!-- Stelle di valutazione -->
+                            <div class="rating mb-3">
+                                @for (int i = 1; i <= 5; i++)
+                                {
+                                    <input type="radio" id="star@i_@recensione.Id" name="rating_@recensione.Id" value="@i" disabled @(i <= recensione.Voto ? "checked" : "") />
+                                    <label for="star@i_@recensione.Id" class="fa fa-star"></label>
+                                }
+                            </div>
 
-                    <p>@recensione.Commento</p>
-                    <p><small class="text-muted">Data: @recensione.Data.ToString("dd/MM/yyyy")</small></p>
+                            <!-- Titolo e utente -->
+                            <h5 class="card-title text-primary">@recensione.Titolo</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Scritta da: @recensione.User?.Nome</h6>
+
+                            <!-- Commento -->
+                            <p class="card-text">@recensione.Commento</p>
+                            <footer class="blockquote-footer text-muted mt-3">Data: @recensione.Data.ToString("dd/MM/yyyy")</footer>
+                        </div>
+                    </div>
                 </div>
             }
         </div>
+
     }
     else
     {

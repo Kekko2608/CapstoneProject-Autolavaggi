@@ -56,26 +56,6 @@ body {
 
 
 
-
-//Homepage
-
-
-.hero {
-    background: url('path/to/your-image.jpg') no-repeat center center;
-    background-size: cover;
-    color: #fff;
-    padding: 100px 0;
-}
-
-.hero h1 {
-    font-size: 3rem;
-}
-
-.feature-icon {
-    font-size: 2rem;
-    color: #007bff;
-}
-
 .blue {
     color:darkblue;
 }
@@ -95,4 +75,10 @@ body {
 .bg-schiuma {
     background-image: url('../images/schiuma.jpg');
     
+}
+
+.font {
+    font-family: "Lobster", sans-serif;
+    font-weight: 400;
+    font-style: normal;
 }

@@ -5,17 +5,17 @@
 }
 
 <div class="container my-5">
-    <h1 class="text-center mb-4">Cerca un Autolavaggio</h1>
 
     <form method="get" action="@Url.Action("GetAllAutolavaggi")" class="mb-5">
         <div class="row">
-            <div class="col-md-12 mb-4">
-                <label for="CittàFiltro" class="form-label fs-4">Trova l'autolavaggio più vicino a te! Inserisci la tua città:</label>
-                <input type="text" id="CittàFiltro" name="cittàFiltro" class="form-control" placeholder="Inserisci la città" value="@Model.CittàFiltro" />
+            <div class="col-md-12 mb-4 border border-3 border-primary rounded p-4 bg-light">
+                <label for="CittàFiltro" class="form-label fs-1 fw-bold blue font">Trova l'autolavaggio più vicino a te!! </label>
+                <p class="blue fw-bold">Inserisci la tua città:</p>
+                <input type="text" id="CittàFiltro" name="cittàFiltro" class="form-control mt-3" placeholder="Inserisci la città" value="@Model.CittàFiltro" />
             </div>
-            <h3 class="mt-4">Altri filtri:</h3>
+            <h4 class="mt-4 fw-bold blue">ALTRI FILTRI:</h4>
             <div class="mb-4" >
-                <label for="TipoFiltro" class="form-label fs-4 mt-2">Tipo di Autolavaggio</label>
+                <label for="TipoFiltro" class="form-label fs-5 mt-2 fw-bold">TIPO DI AUTOLAVAGGIO</label>
                 <select id="TipoFiltro" name="tipoFiltro" class="form-select">
                     <option value="">Seleziona tipo di autolavaggio</option>
                     @foreach (var tipo in Model.Tipi)
@@ -26,7 +26,7 @@
             </div>
 
             <div class="mb-4">
-                <label for="ServiziFiltro" class="form-label fs-4 ">Servizi Offerti</label>
+                <label for="ServiziFiltro" class="form-label fs-5 fw-bold">SERVIZI OFFERTI</label>
                 <select id="ServiziFiltro" name="serviziFiltro" class="form-select" multiple>
                     @foreach (var servizio in Model.Servizi)
                     {
@@ -37,6 +37,7 @@
         </div>
         <button type="submit" class="btn bg-blue text-white">Filtra</button>
     </form>
+
     <h2>Risultati della ricerca :</h2>
     <div class="row">
         @if (Model.Autolavaggi != null && Model.Autolavaggi.Any())
@@ -47,20 +48,26 @@
                     <div class="card">
                         @if (!string.IsNullOrEmpty(autolavaggio.Immagine))
                         {
-                            <img src="@autolavaggio.Immagine" class="card-img-top" alt="Immagine di @autolavaggio.Nome" />
+                            <img src="@autolavaggio.Immagine" class="card-img-top" alt="Immagine di @autolavaggio.Nome" style="width: 350px; height: 300px; object-fit: cover;" />
                         }
                         else
                         {
-                            <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="Immagine di @autolavaggio.Nome" />
+                            <img src="https://via.placeholder.com/350x300" class="card-img-top" alt="Immagine di @autolavaggio.Nome" style="width: 350px; height: 300px; object-fit: cover;" />
                         }
                         <div class="card-body">
-                            <h5 class="card-title">@autolavaggio.Nome</h5>
-                            <a href="@Url.Action("DettagliAutolavaggio", "Autolavaggio", new { id = autolavaggio.Id })" class="btn bg-blue text-white">Dettagli</a>
-                            <a href="@Url.Action("ModificaAutolavaggio", "Autolavaggio", new { id = autolavaggio.Id })" class="btn btn-warning mt-2">Modifica</a>
+                            <h5 class="card-title my-3 font text-primary">@autolavaggio.Nome</h5>
+                            <h6>Via @autolavaggio.Via / @autolavaggio.Città / @autolavaggio.CAP</h6>
+                            <a href="@Url.Action("DettagliAutolavaggio", "Autolavaggio", new { id = autolavaggio.Id })" class="btn bg-blue text-white mt-3">Dettagli</a>
+
+                            @if (User.IsInRole("Amministratore"))
+                            {
+                                <a href="@Url.Action("ModificaAutolavaggio", "Autolavaggio", new { id = autolavaggio.Id })" class="btn btn-warning mt-2">Modifica</a>
+                            }
                         </div>
                     </div>
                 </div>
             }
+
         }
         else
         {
