@@ -10,7 +10,7 @@
     <div class="row">
         <!-- Sezione Recensioni -->
         <div class="col-md-8">
-            <h2 class="mb-4">Recensioni</h2>
+            <h2 class="mb-4 fw-bold blue">RECENSIONI</h2>
             @if (Model.Recensioni.Any())
             {
                 <div class="row">
@@ -30,7 +30,7 @@
 
                                     <!-- Titolo e utente -->
                                     <h5 class="card-title text-primary">@recensione.Titolo</h5>
-                                    <h6 class="card-subtitle mb-2 text-muted">Scritta da: @recensione.User?.Nome</h6>
+                                    <h6 class="card-subtitle mb-4 text-muted">Scritta da: @recensione.User?.Nome</h6>
 
                                     <!-- Commento -->
                                     <p class="card-text">@recensione.Commento</p>
@@ -49,36 +49,38 @@
 
         <!-- Sezione Aggiungi Recensione -->
         <div class="col-md-4">
-            <h2 class="mb-4">Aggiungi una Recensione</h2>
+            <div class="border border-primary rounded p-4 bg-light">
+                <h2 class="mb-4 fw-bold blue">AGGIUNGI RECENSIONE</h2>
 
-            <form asp-action="AggiungiRecensione" method="post">
-                <div class="form-group">
-                    <label asp-for="NuovaRecensione.Titolo" class="control-label"></label>
-                    <input asp-for="NuovaRecensione.Titolo" class="form-control" />
-                    <span asp-validation-for="NuovaRecensione.Titolo" class="text-danger"></span>
-                </div>
-
-                <div class="form-group">
-                    <label class="control-label">Voto</label>
-                    <div class="rating mb-3">
-                        @for (int i = 1; i <= 5; i++)
-                        {
-                            <input type="radio" id="star@i" name="NuovaRecensione.Voto" value="@i" />
-                            <label for="star@i" class="fa fa-star"></label>
-                        }
+                <form asp-action="AggiungiRecensione" method="post">
+                    <div class="form-group mb-3">
+                        <label asp-for="NuovaRecensione.Titolo" class="form-label fw-bold"></label>
+                        <input asp-for="NuovaRecensione.Titolo" class="form-control" />
+                        <span asp-validation-for="NuovaRecensione.Titolo" class="text-danger"></span>
                     </div>
-                    <span asp-validation-for="NuovaRecensione.Voto" class="text-danger"></span>
-                </div>
 
-                <div class="form-group">
-                    <label asp-for="NuovaRecensione.Commento" class="control-label"></label>
-                    <textarea asp-for="NuovaRecensione.Commento" class="form-control"></textarea>
-                    <span asp-validation-for="NuovaRecensione.Commento" class="text-danger"></span>
-                </div>
+                    <div class="form-group mb-3">
+                        <label class="form-label fw-bold">Voto</label>
+                        <div class="rating mb-3">
+                            @for (int i = 1; i <= 5; i++)
+                            {
+                                <input type="radio" id="star@i" name="NuovaRecensione.Voto" value="@i" />
+                                <label for="star@i" class="fa fa-star"></label>
+                            }
+                        </div>
+                        <span asp-validation-for="NuovaRecensione.Voto" class="text-danger"></span>
+                    </div>
 
-                <input type="hidden" asp-for="NuovaRecensione.AutolavaggioId" />
-                <input type="submit" value="Aggiungi Recensione" class="btn btn-primary mt-3" />
-            </form>
+                    <div class="form-group mb-3">
+                        <label asp-for="NuovaRecensione.Commento" class="form-label fw-bold"></label>
+                        <textarea asp-for="NuovaRecensione.Commento" class="form-control"></textarea>
+                        <span asp-validation-for="NuovaRecensione.Commento" class="text-danger"></span>
+                    </div>
+
+                    <input type="hidden" asp-for="NuovaRecensione.AutolavaggioId" />
+                    <input type="submit" value="Aggiungi Recensione" class="btn bg-blue text-white mt-4" />
+                </form>
+            </div>
         </div>
     </div>
 </div>

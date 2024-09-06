@@ -29,12 +29,12 @@
     <div class="row">
         <div class="col-md-6 mb-4">
             <img src="@Model.Autolavaggio.Immagine" class="img-fluid rounded shadow-sm" alt="Immagine di @Model.Autolavaggio.Nome" />
-            <h2 class="fw-bold mt-3">Descrizione: </h2>
+            <h2 class="fw-bold blue mt-3">DESCRIZIONE: </h2>
             <p class="fs-4">@Model.Autolavaggio.Descrizione</p>
         </div>
         <div class="col-md-6">
             <div class="bg-light p-4 rounded border">
-                <h3 class="mb-3">Dettagli</h3>
+                <h3 class="mb-3 fw-bold blue">DETTAGLI</h3>
                 <p><strong>Via:</strong> @Model.Autolavaggio.Via</p>
                 <p><strong>Città:</strong> @Model.Autolavaggio.Città</p>
                 <p><strong>CAP:</strong> @Model.Autolavaggio.CAP</p>
@@ -43,7 +43,7 @@
                 
                 <p><strong>Orari:</strong> @Model.Autolavaggio.OrariDescrizione</p>
 
-                <h4 class="mt-4 mb-3">Servizi Offerti</h4>
+                <h4 class="my-4 fw-bold blue">SERVIZI OFFERTI</h4>
                 <ul class="list-group">
                     @foreach (var servizio in Model.Servizi)
                     {
@@ -55,7 +55,7 @@
                     }
                 </ul>
 
-                <a href="@Url.Action("Recensioni", "Recensione", new { id = Model.Autolavaggio.Id })" class="btn btn-primary mt-4 w-100">Visualizza e Aggiungi Recensioni</a>
+                <a href="@Url.Action("Recensioni", "Recensione", new { id = Model.Autolavaggio.Id })" class="btn bg-blue text-white mt-4 w-100">Visualizza e Aggiungi Recensioni</a>
             </div>
         </div>
     </div>

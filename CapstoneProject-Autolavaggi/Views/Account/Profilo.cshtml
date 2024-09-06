@@ -4,23 +4,23 @@
     ViewData["Title"] = "Profilo Utente";
 }
 
-<h2 class="my-4">Profilo Utente <span><i class="bi bi-person-circle fs-2"></i></span></h2>
+<h2 class="my-4">PROFILO UTENTE <span><i class="bi bi-person-circle fs-2"></i></span></h2>
 
 <form asp-action="Profilo" method="post">
     <div class="form-group col-6 mb-3">
-        <label asp-for="Nome"></label>
+        <label asp-for="Nome" class="blue fw-bold"></label>
         <input asp-for="Nome" class="form-control" />
         <span asp-validation-for="Nome" class="text-danger"></span>
     </div>
 
     <div class="form-group col-6 mb-3">
-        <label asp-for="Email"></label>
+        <label asp-for="Email" class="blue fw-bold">E-mail</label>
         <input asp-for="Email" class="form-control" />
         <span asp-validation-for="Email" class="text-danger"></span>
     </div>
 
     <div class="form-group col-6 ">
-        <label asp-for="NumeroTelefono"></label>
+        <label asp-for="NumeroTelefono" class="blue fw-bold"> Numero di telefono</label>
         <input asp-for="NumeroTelefono" class="form-control" />
         <span asp-validation-for="NumeroTelefono" class="text-danger"></span>
     </div>
@@ -35,7 +35,7 @@
 
 <hr />
 
-<h3 class="my-4">Le mie Recensioni</h3>
+<h3 class="my-4 blue fw-bold">LE MIE RECENSIONI</h3>
 
 @if (Model.Recensioni != null && Model.Recensioni.Any())
 {
@@ -75,7 +75,7 @@ else
 
 <hr />
 
-<h3 class="my-4">Le mie Prenotazioni</h3>
+<h3 class="my-4 blue fw-bold">LE MIE PRENOTAZIONI</h3>
 @if (Model.Prenotazioni != null && Model.Prenotazioni.Any())
 {
     <ul class="list-group col-6">
