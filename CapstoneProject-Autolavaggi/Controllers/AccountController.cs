@@ -192,8 +192,8 @@ namespace CapstoneProject_Autolavaggi.Controllers
 
             ViewBag.Message = "Modifiche salvate con successo.";
 
-            model.Recensioni = user.Recensioni.ToList();
-            model.Prenotazioni = user.Prenotazioni.ToList();
+            model.Recensioni = user.Recensioni?.ToList();
+            model.Prenotazioni = user.Prenotazioni?.ToList();
 
             return View(model);
         }

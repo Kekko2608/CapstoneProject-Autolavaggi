@@ -14,7 +14,7 @@ namespace CapstoneProject_Autolavaggi.Models.Auth
 
         public string NumeroTelefono { get; set; }
 
-        public List<Recensione> Recensioni { get; set; } 
-        public List<Prenotazione> Prenotazioni { get; set; } 
+        public List<Recensione> Recensioni { get; set; } = new List<Recensione>();
+        public List<Prenotazione> Prenotazioni { get; set; } = new List<Prenotazione>();
     }
 }
