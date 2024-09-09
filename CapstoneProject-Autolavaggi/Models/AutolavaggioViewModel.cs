@@ -11,5 +11,6 @@
         public List<Prenotazione> Prenotazioni { get; set; } = new List<Prenotazione>();
         public Prenotazione NuovaPrenotazione { get; set; } = new Prenotazione();
         public string? GoogleMapsUrl { get; set; }
+        public List<Autolavaggio> Autolavaggi { get; set; } = new List<Autolavaggio>();
     }
 }

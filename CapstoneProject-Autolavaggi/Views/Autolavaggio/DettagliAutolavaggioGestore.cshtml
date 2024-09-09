@@ -1,81 +1,97 @@
 ﻿@model CapstoneProject_Autolavaggi.Models.AutolavaggioViewModel
 
 @{
-    ViewData["Title"] = "Dettagli Autolavaggio Gestore";
+    ViewData["Title"] = "Dettagli Autolavaggi Gestore";
 }
 
-<div class="container mt-5">
-    <h1 class="mb-4 font">@Model.Autolavaggio.Nome</h1>
+<div class="container mt-3">
 
-    <!-- Sezione Dettagli Autolavaggio -->
-    <div class="row mb-4">
-        <div class="col-md-6">
-            <img src="@Model.Autolavaggio.Immagine" alt="Immagine Autolavaggio" class="img-fluid rounded shadow-sm" />
-        </div>
-        <div class="col-md-6">
-            <p class="my-5"><strong><i class="bi bi-geo-alt-fill blue me-1"></i> INDIRIZZO:</strong> @Model.Autolavaggio.Via, @Model.Autolavaggio.Città, @Model.Autolavaggio.CAP</p>
-            <p class="my-5"><strong><i class="bi bi-telephone-fill blue me-1"></i> TELEFONO:</strong> @Model.Autolavaggio.Telefono</p>
-            <p class="my-5"><strong><i class="bi bi-pen-fill blue me-1"></i> DESCRIZIONE:</strong> @Model.Autolavaggio.Descrizione</p>
-            <p class="my-5"><strong><i class="bi bi-alarm-fill blue me-1"></i> ORARI:</strong> @Model.Autolavaggio.OrariDescrizione</p>
-            <a asp-action="ModificaAutolavaggio" asp-route-id="@Model.Autolavaggio.Id" class="btn bg-blue text-white">Modifica</a>
-        </div>
-    </div>
-    <hr />
-    <!-- Sezione Recensioni -->
-    <h4 class="mb-4 blue">RECENSIONI AUTOLAVAGGIO</h4>
-    @if (Model.Recensioni.Any())
+    @if (Model.Autolavaggi.Count > 1)
     {
-        <div class="row">
-            @foreach (var recensione in Model.Recensioni)
+        <h3 class="mb-4">I tuoi Autolavaggi:</h3>
+    }
+
+    @foreach (var autolavaggio in Model.Autolavaggi)
+    {
+        <div class="mb-5">
+            <h2 class="mb-4 font">@autolavaggio.Nome</h2>
+
+            <!-- Sezione Dettagli Autolavaggio -->
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <img src="@autolavaggio.Immagine" alt="Immagine Autolavaggio" class="img-fluid rounded shadow-sm" />
+                </div>
+                <div class="col-md-6">
+                    <p class="my-5"><strong><i class="bi bi-geo-alt-fill blue me-1"></i> INDIRIZZO:</strong> @autolavaggio.Via, @autolavaggio.Città, @autolavaggio.CAP</p>
+                    <p class="my-5"><strong><i class="bi bi-telephone-fill blue me-1"></i> TELEFONO:</strong> @autolavaggio.Telefono</p>
+                    <p class="my-5"><strong><i class="bi bi-pen-fill blue me-1"></i> DESCRIZIONE:</strong> @autolavaggio.Descrizione</p>
+                    <p class="my-5"><strong><i class="bi bi-alarm-fill blue me-1"></i> ORARI:</strong> @autolavaggio.OrariDescrizione</p>
+                    <a asp-action="ModificaAutolavaggio" asp-route-id="@autolavaggio.Id" class="btn bg-blue text-white">Modifica</a>
+                </div>
+            </div>
+
+            <hr />
+
+            <!-- Sezione Recensioni -->
+            <h4 class="mb-4 blue">RECENSIONI AUTOLAVAGGIO</h4>
+            @if (Model.Recensioni.Where(r => r.AutolavaggioId == autolavaggio.Id).Any())
             {
-                <div class="col-md-6 mb-4">
-                    <div class="card border-secondary shadow ">
-                        <div class="card-body">
-                            <!-- Stelle di valutazione -->
-                            <div class="rating mb-3">
-                                @for (int i = 1; i <= 5; i++)
-                                {
-                                    <input type="radio" id="star@i_@recensione.Id" name="rating_@recensione.Id" value="@i" disabled @(i <= recensione.Voto ? "checked" : "") />
-                                    <label for="star@i_@recensione.Id" class="fa fa-star"></label>
-                                }
+                <div class="row">
+                    @foreach (var recensione in Model.Recensioni.Where(r => r.AutolavaggioId == autolavaggio.Id))
+                    {
+                        <div class="col-md-6 mb-4">
+                            <div class="card border-secondary shadow">
+                                <div class="card-body">
+                                    <!-- Stelle di valutazione -->
+                                    <div class="rating mb-3">
+                                        @for (int i = 1; i <= 5; i++)
+                                        {
+                                            <input type="radio" id="star@i_@recensione.Id" name="rating_@recensione.Id" value="@i" disabled @(i <= recensione.Voto ? "checked" : "") />
+                                            <label for="star@i_@recensione.Id" class="fa fa-star"></label>
+                                        }
+                                    </div>
+
+                                    <!-- Titolo e utente -->
+                                    <h5 class="card-title text-primary">@recensione.Titolo</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">Scritta da: @recensione.User?.Nome</h6>
+
+                                    <!-- Commento -->
+                                    <p class="card-text">@recensione.Commento</p>
+                                    <footer class="blockquote-footer text-muted mt-3">Data: @recensione.Data.ToString("dd/MM/yyyy")</footer>
+                                </div>
                             </div>
-
-                            <!-- Titolo e utente -->
-                            <h5 class="card-title text-primary">@recensione.Titolo</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">Scritta da: @recensione.User?.Nome</h6>
-
-                            <!-- Commento -->
-                            <p class="card-text">@recensione.Commento</p>
-                            <footer class="blockquote-footer text-muted mt-3">Data: @recensione.Data.ToString("dd/MM/yyyy")</footer>
                         </div>
-                    </div>
+                    }
                 </div>
             }
-        </div>
-
-    }
-    else
-    {
-        <p>Nessuna recensione disponibile.</p>
-    }
-    <hr />
-    <!-- Sezione Prenotazioni -->
-    <h4 class="mt-4 mb-4">Prenotazioni clienti</h4>
-    @if (Model.Prenotazioni.Any())
-    {
-        <div class="list-group">
-            @foreach (var prenotazione in Model.Prenotazioni)
+            else
             {
-                <div class="list-group-item mb-2 border-light border border-2 border-dark col-6">
-                    <p><strong><i class="bi bi-person-fill"></i> Utente:</strong> @prenotazione.User.Nome</p>
-                    <p><strong>Data:</strong> @prenotazione.Data.ToString("dd/MM/yyyy")</p>
-                    <p><strong>Servizio:</strong> @prenotazione.Servizio?.Nome</p>
+                <p>Nessuna recensione disponibile.</p>
+            }
+
+            <hr />
+
+            <!-- Sezione Prenotazioni -->
+            <h4 class="mt-4 mb-4">Prenotazioni clienti</h4>
+            @if (Model.Prenotazioni.Where(p => p.AutolavaggioId == autolavaggio.Id).Any())
+            {
+                <div class="list-group">
+                    @foreach (var prenotazione in Model.Prenotazioni.Where(p => p.AutolavaggioId == autolavaggio.Id))
+                    {
+                        <div class="list-group-item mb-2 border-light border border-2 border-dark col-6">
+                            <p><strong><i class="bi bi-person-fill"></i> Utente:</strong> @prenotazione.User.Nome</p>
+                            <p><strong>Data:</strong> @prenotazione.Data.ToString("dd/MM/yyyy")</p>
+                            <p><strong>Servizio:</strong> @prenotazione.Servizio?.Nome</p>
+                        </div>
+                    }
                 </div>
             }
+            else
+            {
+                <p>Nessuna prenotazione disponibile.</p>
+            }
+
+            <hr />
         </div>
-    }
-    else
-    {
-        <p>Nessuna prenotazione disponibile.</p>
     }
 </div>

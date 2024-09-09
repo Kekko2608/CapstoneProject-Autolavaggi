@@ -3,6 +3,7 @@ using CapstoneProject_Autolavaggi.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 
 namespace CapstoneProject_Autolavaggi.Controllers
@@ -164,24 +165,32 @@ namespace CapstoneProject_Autolavaggi.Controllers
             }
 
             // Trova l'autolavaggio associato all'utente loggato
-            var autolavaggio = await _ctx.Autolavaggi
-                .Include(a => a.Servizi)
-                .Include(a => a.Tipo)
-                .FirstOrDefaultAsync(a => a.OwnerId == user.Id);
+            var autolavaggi = await _ctx.Autolavaggi
+         .Include(a => a.Servizi)
+         .Include(a => a.Tipo)
+         .Where(a => a.OwnerId == user.Id)  // Restituisce una collezione di autolavaggi
+         .ToListAsync();  // Converti in lista
 
-            if (autolavaggio == null)
+            if (autolavaggi == null || !autolavaggi.Any())
             {
-                return NotFound("Autolavaggio non trovato.");
+                return NotFound("Nessun autolavaggio trovato per questo utente.");
             }
 
             var viewModel = new AutolavaggioViewModel
             {
-                Autolavaggio = autolavaggio,
-                Servizi = autolavaggio.Servizi,
-                Tipi = new List<Tipo> { autolavaggio.Tipo },
-                Recensioni = await _ctx.Recensioni.Where(r => r.AutolavaggioId == autolavaggio.Id).ToListAsync(),
-                Prenotazioni = await _ctx.Prenotazioni.Where(p => p.AutolavaggioId == autolavaggio.Id).ToListAsync()
+                Autolavaggi = await _ctx.Autolavaggi
+        .Include(a => a.Servizi)
+        .Include(a => a.Tipo)
+        .Where(a => a.OwnerId == user.Id)
+        .ToListAsync(),
+                Recensioni = await _ctx.Recensioni
+        .Where(r => autolavaggi.Select(a => a.Id).Contains(r.AutolavaggioId))
+        .ToListAsync(),
+                Prenotazioni = await _ctx.Prenotazioni
+        .Where(p => autolavaggi.Select(a => a.Id).Contains(p.AutolavaggioId))
+        .ToListAsync()
             };
+
 
             return View(viewModel);
         }
