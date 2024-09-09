@@ -29,7 +29,7 @@
             @foreach (var recensione in Model.Recensioni)
             {
                 <div class="col-md-6 mb-4">
-                    <div class="card border-light shadow-sm">
+                    <div class="card border-secondary shadow ">
                         <div class="card-body">
                             <!-- Stelle di valutazione -->
                             <div class="rating mb-3">
@@ -66,8 +66,8 @@
         <div class="list-group">
             @foreach (var prenotazione in Model.Prenotazioni)
             {
-                <div class="list-group-item mb-2 border-light">
-                    <p><strong>Utente:</strong> @prenotazione.User.Nome</p>
+                <div class="list-group-item mb-2 border-light border border-2 border-dark col-6">
+                    <p><strong><i class="bi bi-person-fill"></i> Utente:</strong> @prenotazione.User.Nome</p>
                     <p><strong>Data:</strong> @prenotazione.Data.ToString("dd/MM/yyyy")</p>
                     <p><strong>Servizio:</strong> @prenotazione.Servizio?.Nome</p>
                 </div>
