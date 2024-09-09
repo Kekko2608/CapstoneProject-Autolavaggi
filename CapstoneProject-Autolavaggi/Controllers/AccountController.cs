@@ -166,6 +166,7 @@ namespace CapstoneProject_Autolavaggi.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Profilo(ProfiloViewModel model)
         {
             var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);

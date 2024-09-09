@@ -8,6 +8,7 @@
 
 <div class="container">
     <form id="prenotazioneForm" asp-action="ConfermaPrenotazione" method="post">
+        @Html.AntiForgeryToken()
         <input type="hidden" asp-for="NuovaPrenotazione.AutolavaggioId" />
         <input type="hidden" asp-for="NuovaPrenotazione.ServizioId" />
 

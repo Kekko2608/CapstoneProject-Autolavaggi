@@ -81,7 +81,10 @@ public class RecensioneController : Controller
         }
     }
 
+
+
     [HttpPost]
+    [ValidateAntiForgeryToken]
     public async Task<IActionResult> EliminaRecensione(int recensioneId)
     {
         var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);

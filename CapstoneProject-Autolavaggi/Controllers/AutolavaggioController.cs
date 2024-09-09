@@ -225,8 +225,7 @@ namespace CapstoneProject_Autolavaggi.Controllers
                 {
                     return NotFound();
                 }
-
-                // Aggiorna i dati dell'autolavaggio
+                
                 autolavaggio.Nome = model.Autolavaggio.Nome;
                 autolavaggio.Via = model.Autolavaggio.Via;
                 autolavaggio.Città = model.Autolavaggio.Città;
@@ -237,8 +236,7 @@ namespace CapstoneProject_Autolavaggi.Controllers
                 autolavaggio.Immagine = model.Autolavaggio.Immagine;
                 autolavaggio.OrariDescrizione = model.Autolavaggio.OrariDescrizione;
                 autolavaggio.TipoNome = model.Autolavaggio.TipoNome;
-
-                // Aggiorna i servizi
+       
                 var serviziToRemove = autolavaggio.Servizi.Where(s => !model.SelectedServizi.Contains(s.Id)).ToList();
                 var serviziToAdd = await _ctx.Servizi.Where(s => model.SelectedServizi.Contains(s.Id)).ToListAsync();
 
@@ -256,8 +254,7 @@ namespace CapstoneProject_Autolavaggi.Controllers
                         autolavaggio.Servizi.Add(servizio);
                     }
                 }
-
-                // Salva le modifiche nel database
+      
                 await _ctx.SaveChangesAsync();
 
                 return RedirectToAction("DettagliAutolavaggio", new { id = autolavaggio.Id });

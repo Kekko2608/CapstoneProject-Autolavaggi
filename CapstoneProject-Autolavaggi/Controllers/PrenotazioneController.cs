@@ -16,8 +16,7 @@ namespace CapstoneProject_Autolavaggi.Controllers
         {
             _ctx = context;
         }
-
-        // Mostra il form di prenotazione
+    
         public async Task<IActionResult> Prenotazione(int servizioId, int autolavaggioId)
         {
             // Recupera il servizio e l'autolavaggio dal database
@@ -26,8 +25,7 @@ namespace CapstoneProject_Autolavaggi.Controllers
 
             // Verifica che il servizio e l'autolavaggio esistano
             if (servizio == null || autolavaggio == null)
-            {
-                // Mostra un errore o reindirizza
+            {          
                 return NotFound("Servizio o Autolavaggio non trovato");
             }
 
@@ -46,8 +44,8 @@ namespace CapstoneProject_Autolavaggi.Controllers
             return View(model);
         }
 
-        // Processa il form di prenotazione
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> ConfermaPrenotazione(AutolavaggioViewModel model)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -75,7 +73,7 @@ namespace CapstoneProject_Autolavaggi.Controllers
             };
 
             _ctx.Prenotazioni.Add(prenotazione);
-            await _ctx.SaveChangesAsync(); // Usa SaveChangesAsync
+            await _ctx.SaveChangesAsync(); 
 
             TempData["SuccessMessage"] = "Prenotazione Confermata";
 

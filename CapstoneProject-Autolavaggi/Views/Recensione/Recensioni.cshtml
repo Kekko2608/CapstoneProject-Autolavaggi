@@ -53,6 +53,7 @@
                 <h2 class="mb-4 fw-bold blue">AGGIUNGI RECENSIONE</h2>
 
                 <form asp-action="AggiungiRecensione" method="post">
+                    @Html.AntiForgeryToken()
                     <div class="form-group mb-3">
                         <label asp-for="NuovaRecensione.Titolo" class="form-label fw-bold"></label>
                         <input asp-for="NuovaRecensione.Titolo" class="form-control" />
