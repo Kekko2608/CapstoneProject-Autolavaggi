@@ -29,7 +29,9 @@ public class RecensioneController : Controller
         var viewModel = new AutolavaggioViewModel
         {
             Autolavaggio = autolavaggio,
-            Recensioni = autolavaggio.Recensioni.ToList(),
+            Recensioni = autolavaggio.Recensioni
+            .OrderByDescending(r => r.Data) // Ordinare per data, più recente prima
+            .ToList(),
             NuovaRecensione = new Recensione { AutolavaggioId = id }
         };
 

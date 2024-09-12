@@ -46,9 +46,9 @@
             <li class="list-group-item my-1 d-flex justify-content-between align-items-center">
                 <div>
                     <strong>@recensione.Titolo</strong><br />
-                    @recensione.Commento<br />
-                    Voto: @recensione.Voto<br />
-                    Data: @recensione.Data.ToString("dd/MM/yyyy")<br />
+                    Commento : @recensione.Commento<br />
+                    Voto: @recensione.Voto <i class="bi bi-star-fill"></i><br />
+                    
                     @if (recensione.Autolavaggio != null)
                     {
                         <strong>Autolavaggio: @recensione.Autolavaggio.Nome</strong>
@@ -56,7 +56,8 @@
                     else
                     {
                         <p>Autolavaggio non disponibile</p>
-                    }
+                    }<br />
+                    Data: @recensione.Data.ToString("dd/MM/yyyy")
                 </div>
 
                 <!-- Modulo per eliminare la recensione -->

@@ -34,36 +34,43 @@ body {
 
 
 
+/* Stile base delle stelle */
 .rating {
-    direction: ltr;
-    
+    direction: rtl; /* Per far partire l'orientamento da destra a sinistra */
+    font-size: 2rem; /* Dimensione delle stelle */
+    unicode-bidi: bidi-override; /* Per garantire che le stelle siano ordinate correttamente */
+    color: #ddd; /* Colore delle stelle non selezionate */
 }
 
+    .rating input[type="radio"] {
+        display: none; /* Nascondere i radio button */
+    }
+
     .rating label {
-        color: #ddd;
-        font-size: 2rem;
-        padding: 0;
-        cursor: pointer;
-        display: inline-block;
+        color: #ddd; /* Colore delle stelle non selezionate */
+        cursor: pointer; /* Cambia il cursore su hover */
+        font-size: 2rem; /* Dimensione delle stelle */
     }
 
-        .rating label:before {
-            content: "\2605";
-        }
-
-    .rating input:checked  {
-        color: #ddd;
+    .rating input:checked ~ label,
+    .rating input:checked ~ label ~ label {
+        color: #ffcc00; /* Colore delle stelle selezionate */
     }
 
-    .rating input:checked + label,
-    .rating input:checked  {
-        color: #f5c518;
+    .rating input:hover ~ label,
+    .rating input:hover ~ label ~ label {
+        color: #ffcc00; /* Colore delle stelle al passaggio del mouse */
     }
 
-    
-    .rating label:hover {
-        color: #f5c518;
+    .rating label:before {
+        content: "\2605"; /* Simbolo della stella */
     }
+
+    /* Per l'effetto di transizione */
+    .rating label {
+        transition: color 0.2s ease;
+    }
+
 
 
 

@@ -21,20 +21,30 @@
                                 <div class="card-body">
                                     <!-- Stelle di valutazione -->
                                     <div class="rating mb-3">
-                                        @for (int i = 1; i <= 5; i++)
-                                        {
-                                            <input type="radio" id="star@i_@recensione.Id" name="rating_@recensione.Id" value="@i" disabled @(i <= recensione.Voto ? "checked" : "") />
-                                            <label for="star@i_@recensione.Id" class="fa fa-star"></label>
-                                        }
+                                        <input type="radio" id="star5_@recensione.Id" name="rating_@recensione.Id" value="5" disabled @(recensione.Voto == 5 ? "checked" : "") />
+                                        <label for="star5_@recensione.Id" class="fa fa-star"></label>
+
+                                        <input type="radio" id="star4_@recensione.Id" name="rating_@recensione.Id" value="4" disabled @(recensione.Voto == 4 ? "checked" : "") />
+                                        <label for="star4_@recensione.Id" class="fa fa-star"></label>
+
+                                        <input type="radio" id="star3_@recensione.Id" name="rating_@recensione.Id" value="3" disabled @(recensione.Voto == 3 ? "checked" : "") />
+                                        <label for="star3_@recensione.Id" class="fa fa-star"></label>
+
+                                        <input type="radio" id="star2_@recensione.Id" name="rating_@recensione.Id" value="2" disabled @(recensione.Voto == 2 ? "checked" : "") />
+                                        <label for="star2_@recensione.Id" class="fa fa-star"></label>
+
+                                        <input type="radio" id="star1_@recensione.Id" name="rating_@recensione.Id" value="1" disabled @(recensione.Voto == 1 ? "checked" : "") />
+                                        <label for="star1_@recensione.Id" class="fa fa-star"></label>
                                     </div>
 
+
                                     <!-- Titolo e utente -->
-                                    <h5 class="card-title text-primary">@recensione.Titolo</h5>
-                                    <h6 class="card-subtitle mb-4 text-muted">Scritta da: @recensione.User?.Nome</h6>
+                                    <h5 class="card-title text-primary mb-3">@recensione.Titolo</h5>
+                                    <h6 class="card-subtitle text-muted">Scritta da: @recensione.User?.Nome</h6>
 
                                     <!-- Commento -->
-                                    <p class="card-text">@recensione.Commento</p>
-                                    <footer class="blockquote-footer text-muted mt-3">Data: @recensione.Data.ToString("dd/MM/yyyy")</footer>
+                                    <p class="card-text my-5">@recensione.Commento</p>
+                                    <footer class="blockquote-footer text-muted ">Data: @recensione.Data.ToString("dd/MM/yyyy")</footer>
                                 </div>
                             </div>
                         </div>
@@ -63,14 +73,24 @@
                     <div class="form-group mb-3">
                         <label class="form-label fw-bold">Voto</label>
                         <div class="rating mb-3">
-                            @for (int i = 1; i <= 5; i++)
-                            {
-                                <input type="radio" id="star@i" name="NuovaRecensione.Voto" value="@i" />
-                                <label for="star@i" class="fa fa-star"></label>
-                            }
+                            <input type="radio" id="star5" name="NuovaRecensione.Voto" value="5" />
+                            <label for="star5" class="fa fa-star"></label>
+
+                            <input type="radio" id="star4" name="NuovaRecensione.Voto" value="4" />
+                            <label for="star4" class="fa fa-star"></label>
+
+                            <input type="radio" id="star3" name="NuovaRecensione.Voto" value="3" />
+                            <label for="star3" class="fa fa-star"></label>
+
+                            <input type="radio" id="star2" name="NuovaRecensione.Voto" value="2" />
+                            <label for="star2" class="fa fa-star"></label>
+
+                            <input type="radio" id="star1" name="NuovaRecensione.Voto" value="1" />
+                            <label for="star1" class="fa fa-star"></label>
                         </div>
                         <span asp-validation-for="NuovaRecensione.Voto" class="text-danger"></span>
                     </div>
+
 
                     <div class="form-group mb-3">
                         <label asp-for="NuovaRecensione.Commento" class="form-label fw-bold"></label>

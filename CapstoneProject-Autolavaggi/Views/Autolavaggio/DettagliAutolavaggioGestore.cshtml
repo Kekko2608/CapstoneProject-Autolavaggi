@@ -44,11 +44,20 @@
                                 <div class="card-body">
                                     <!-- Stelle di valutazione -->
                                     <div class="rating mb-3">
-                                        @for (int i = 1; i <= 5; i++)
-                                        {
-                                            <input type="radio" id="star@i_@recensione.Id" name="rating_@recensione.Id" value="@i" disabled @(i <= recensione.Voto ? "checked" : "") />
-                                            <label for="star@i_@recensione.Id" class="fa fa-star"></label>
-                                        }
+                                        <input type="radio" id="star5_@recensione.Id" name="rating_@recensione.Id" value="5" disabled @(recensione.Voto == 5 ? "checked" : "") />
+                                        <label for="star5_@recensione.Id" class="fa fa-star"></label>
+
+                                        <input type="radio" id="star4_@recensione.Id" name="rating_@recensione.Id" value="4" disabled @(recensione.Voto == 4 ? "checked" : "") />
+                                        <label for="star4_@recensione.Id" class="fa fa-star"></label>
+
+                                        <input type="radio" id="star3_@recensione.Id" name="rating_@recensione.Id" value="3" disabled @(recensione.Voto == 3 ? "checked" : "") />
+                                        <label for="star3_@recensione.Id" class="fa fa-star"></label>
+
+                                        <input type="radio" id="star2_@recensione.Id" name="rating_@recensione.Id" value="2" disabled @(recensione.Voto == 2 ? "checked" : "") />
+                                        <label for="star2_@recensione.Id" class="fa fa-star"></label>
+
+                                        <input type="radio" id="star1_@recensione.Id" name="rating_@recensione.Id" value="1" disabled @(recensione.Voto == 1 ? "checked" : "") />
+                                        <label for="star1_@recensione.Id" class="fa fa-star"></label>
                                     </div>
 
                                     <!-- Titolo e utente -->

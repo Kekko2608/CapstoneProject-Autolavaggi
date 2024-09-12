@@ -166,10 +166,10 @@ namespace CapstoneProject_Autolavaggi.Controllers
 
             // Trova l'autolavaggio associato all'utente loggato
             var autolavaggi = await _ctx.Autolavaggi
-         .Include(a => a.Servizi)
-         .Include(a => a.Tipo)
-         .Where(a => a.OwnerId == user.Id)  // Restituisce una collezione di autolavaggi
-         .ToListAsync();  // Converti in lista
+                .Include(a => a.Servizi)
+                .Include(a => a.Tipo)
+                .Where(a => a.OwnerId == user.Id)  
+                .ToListAsync();  
 
             if (autolavaggi == null || !autolavaggi.Any())
             {
@@ -179,16 +179,16 @@ namespace CapstoneProject_Autolavaggi.Controllers
             var viewModel = new AutolavaggioViewModel
             {
                 Autolavaggi = await _ctx.Autolavaggi
-        .Include(a => a.Servizi)
-        .Include(a => a.Tipo)
-        .Where(a => a.OwnerId == user.Id)
-        .ToListAsync(),
+                    .Include(a => a.Servizi)
+                    .Include(a => a.Tipo)
+                    .Where(a => a.OwnerId == user.Id)
+                    .ToListAsync(),
                 Recensioni = await _ctx.Recensioni
-        .Where(r => autolavaggi.Select(a => a.Id).Contains(r.AutolavaggioId))
-        .ToListAsync(),
+                    .Where(r => autolavaggi.Select(a => a.Id).Contains(r.AutolavaggioId))
+                    .ToListAsync(),
                 Prenotazioni = await _ctx.Prenotazioni
-        .Where(p => autolavaggi.Select(a => a.Id).Contains(p.AutolavaggioId))
-        .ToListAsync()
+                    .Where(p => autolavaggi.Select(a => a.Id).Contains(p.AutolavaggioId))
+                    .ToListAsync()
             };
 
 
