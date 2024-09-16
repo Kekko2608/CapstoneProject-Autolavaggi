@@ -62,6 +62,12 @@
                             @if (User.IsInRole("Amministratore"))
                             {
                                 <a href="@Url.Action("ModificaAutolavaggio", "Autolavaggio", new { id = autolavaggio.Id })" class="btn btn-warning mt-3">Modifica</a>
+                                <form action="@Url.Action("EliminaAutolavaggio", "Autolavaggio")" method="post" style="display:inline;">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="id" value="@autolavaggio.Id" />
+                                    <button type="submit" class="btn btn-danger mt-3">Elimina</button>
+                                </form>
+
                             }
                         </div>
                     </div>

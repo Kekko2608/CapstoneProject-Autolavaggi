@@ -119,10 +119,6 @@ namespace CapstoneProject_Autolavaggi.Controllers
         }
 
 
-
-
-
-
         public async Task<IActionResult> DettagliAutolavaggio(int id)
         {
             var autolavaggio = await _ctx.Autolavaggi
@@ -267,11 +263,48 @@ namespace CapstoneProject_Autolavaggi.Controllers
                 await _ctx.SaveChangesAsync();
 
                 return RedirectToAction("DettagliAutolavaggio", new { id = autolavaggio.Id });
-            
-
-           
+          
         }
 
+        [HttpGet]
+        public async Task<IActionResult> RimozioneAutolavaggio(int id)
+        {
+            var autolavaggio = await _ctx.Autolavaggi
+                .Include(a => a.Servizi) // Carica i servizi associati
+                .FirstOrDefaultAsync(a => a.Id == id);
+
+            if (autolavaggio == null)
+            {
+                return NotFound();
+            }
+
+            return View(autolavaggio);
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EliminaAutolavaggio(int id)
+        {
+            var autolavaggio = await _ctx.Autolavaggi
+                .Include(a => a.Prenotazioni)  // Include prenotazioni per la rimozione
+                .FirstOrDefaultAsync(a => a.Id == id);
+
+            if (autolavaggio == null)
+            {
+                return NotFound();
+            }
+
+            // Rimuovi le prenotazioni associate
+            _ctx.Prenotazioni.RemoveRange(autolavaggio.Prenotazioni);
+
+            // Rimuovi l'autolavaggio
+            _ctx.Autolavaggi.Remove(autolavaggio);
+
+            await _ctx.SaveChangesAsync();
+
+            return RedirectToAction("GetAllAutolavaggi", "Autolavaggio");
+        }
 
     }
 }
