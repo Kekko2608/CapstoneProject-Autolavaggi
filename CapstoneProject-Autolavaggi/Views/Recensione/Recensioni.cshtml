@@ -3,13 +3,13 @@
 @{
     ViewData["Title"] = "Recensioni per " + Model.Autolavaggio.Nome;
 }
-
+<br />
 <h1>@Model.Autolavaggio.Nome</h1>
 
 <div class="container mt-5">
     <div class="row">
         <!-- Sezione Recensioni -->
-        <div class="col-md-8">
+        <div class="col-md-6">
             <h2 class="mb-4 fw-bold blue">RECENSIONI</h2>
             @if (Model.Recensioni.Any())
             {
@@ -17,7 +17,7 @@
                     @foreach (var recensione in Model.Recensioni)
                     {
                         <div class="col-md-12 mb-4">
-                            <div class="card border-light shadow-sm">
+                            <div class="card border-4 shadow-sm">
                                 <div class="card-body">
                                     <!-- Stelle di valutazione -->
                                     <div class="rating mb-3">
@@ -58,7 +58,7 @@
         </div>
 
         <!-- Sezione Aggiungi Recensione -->
-        <div class="col-md-4">
+        <div class="col-md-6">
             <div class="border border-primary rounded p-4 bg-light">
                 <h2 class="mb-4 fw-bold blue">AGGIUNGI RECENSIONE</h2>
 

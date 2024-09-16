@@ -22,8 +22,6 @@ body {
 }
 
 
-
-
 .navbar-toggler {
     color: white; 
 }
@@ -104,6 +102,13 @@ body {
     background-repeat: no-repeat;
 }
 
+.bg-allAutol {
+    background-image: url('https://www.oasidellavaggio.com/wp-content/uploads/2023/04/autolavaggio.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height:30em;
+}
 
 .bg-schiuma {
     background-image: url('../images/schiuma.jpg');

@@ -6,27 +6,27 @@
 <br />
 <h2 class="my-4">PROFILO UTENTE <span><i class="bi bi-person-circle fs-2"></i></span></h2>
 
-<form asp-action="Profilo" method="post">
+<form asp-action="Profilo" method="post" class="bg-blue p-4 rounded col-8">
     @Html.AntiForgeryToken()
-    <div class="form-group col-6 mb-3">
-        <label asp-for="Nome" class="blue fw-bold"></label>
+    <div class="form-group col-10 mb-3">
+        <label asp-for="Nome" class=" text-white fw-bold"></label>
         <input asp-for="Nome" class="form-control" />
         <span asp-validation-for="Nome" class="text-danger"></span>
     </div>
 
-    <div class="form-group col-6 mb-3">
-        <label asp-for="Email" class="blue fw-bold">E-mail</label>
+    <div class="form-group col-10 mb-3">
+        <label asp-for="Email" class="text-white fw-bold">E-mail</label>
         <input asp-for="Email" class="form-control" />
         <span asp-validation-for="Email" class="text-danger"></span>
     </div>
 
-    <div class="form-group col-6 ">
-        <label asp-for="NumeroTelefono" class="blue fw-bold"> Numero di telefono</label>
+    <div class="form-group col-10 ">
+        <label asp-for="NumeroTelefono" class="text-white fw-bold"> Numero di telefono</label>
         <input asp-for="NumeroTelefono" class="form-control" />
         <span asp-validation-for="NumeroTelefono" class="text-danger"></span>
     </div>
 
-    <input type="submit" value="Salva Modifiche" class="btn bg-blue text-white my-3" />
+    <input type="submit" value="Salva Modifiche" class="btn bg-secondary text-white mt-4" />
 
     @if (ViewBag.Message != null)
     {
@@ -43,7 +43,7 @@
     <ul class="list-group col-6">
         @foreach (var recensione in Model.Recensioni)
         {
-            <li class="list-group-item my-1 d-flex justify-content-between align-items-center">
+            <li class="list-group-item my-3 border border-2" >
                 <div>
                     <strong>@recensione.Titolo</strong><br />
                     Commento : @recensione.Commento<br />
@@ -79,18 +79,25 @@ else
 <hr />
 
 <h3 class="my-4 blue fw-bold">LE MIE PRENOTAZIONI</h3>
+
 @if (Model.Prenotazioni != null && Model.Prenotazioni.Any())
 {
-    <ul class="list-group col-6">
-        @foreach (var prenotazione in Model.Prenotazioni.OrderByDescending(p => p.Data))
-        {
-            <li class="list-group-item">
-                <strong>Autolavaggio: @prenotazione.Autolavaggio.Nome</strong>
-                <p class="mt-3">Servizio prenotato per il: @prenotazione.Data.ToString("dd/MM/yyyy")</p>
-                <p>Dettagli servizio: @prenotazione.Servizio.Nome</p>
-            </li>
-        }
-    </ul>
+    <div class="container">
+        <div class="row">
+            @foreach (var prenotazione in Model.Prenotazioni.OrderByDescending(p => p.Data))
+            {
+                <div class="col-md-6 mb-3">
+                    <div class="list-group">
+                        <div class="list-group-item">
+                            <strong>Autolavaggio: @prenotazione.Autolavaggio.Nome</strong>
+                            <p class="mt-3">Servizio prenotato per il: @prenotazione.Data.ToString("dd/MM/yyyy")</p>
+                            <p>Dettagli servizio: @prenotazione.Servizio.Nome</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
 }
 else
 {
