@@ -80,7 +80,7 @@ namespace CapstoneProject_Autolavaggi.Context
                 entity.HasKey(e => e.Id).HasName("PK_Autolavaggi");
 
                 entity.HasOne(a => a.Owner)
-                      .WithMany() // un User può essere proprietario di più autolavaggi
+                      .WithMany() // uno User può essere proprietario di più autolavaggi
                       .HasForeignKey(a => a.OwnerId)
                       .OnDelete(DeleteBehavior.Restrict); 
             });

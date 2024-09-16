@@ -36,6 +36,12 @@
                     <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                 </div>
 
+                <div class="form-group">
+                      <label asp-for="NumeroTelefono"></label>
+                      <input asp-for="NumeroTelefono" class="form-control" />
+                      <span asp-validation-for="NumeroTelefono" class="text-danger"></span>
+                 </div>
+
                 <div class="mb-3">
                     <label for="Role" class="form-label">Ruolo</label>
                     <select id="Role" name="roleId" class="form-select">

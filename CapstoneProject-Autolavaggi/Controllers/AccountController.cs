@@ -97,8 +97,8 @@ namespace CapstoneProject_Autolavaggi.Controllers
                 {
                     Nome = model.Nome,
                     Email = model.Email,
-                    Password = model.Password
-
+                    Password = model.Password,
+                    NumeroTelefono = model.NumeroTelefono
                 };
 
                 _ctx.User.Add(newUser);
