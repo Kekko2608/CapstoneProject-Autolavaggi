@@ -4,11 +4,12 @@
     ViewData["Title"] = "Dettagli Autolavaggi Gestore";
 }
 
-<div class="container mt-3">
+<div class="container">
+    <br />
 
     @if (Model.Autolavaggi.Count > 1)
     {
-        <h3 class="my-4 text-center blue fw-bold">I TUOI AUTOLAVAGGI</h3>
+        <h3 class="my-3 text-center blue fw-bold">I TUOI AUTOLAVAGGI</h3>
     }
 
     @foreach (var autolavaggio in Model.Autolavaggi)

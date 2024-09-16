@@ -303,7 +303,7 @@ namespace CapstoneProject_Autolavaggi.Controllers
 
             await _ctx.SaveChangesAsync();
 
-            return RedirectToAction("GetAllAutolavaggi", "Autolavaggio");
+            return RedirectToAction("GetAllAutolavaggi");
         }
 
     }

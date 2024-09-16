@@ -3,98 +3,109 @@
 @{
     ViewData["Title"] = "Crea Autolavaggio";
 }
-
-<h1 class="blue fw-bold my-5">REGISTRA NUOVO AUTOLAVAGGIO</h1>
-
-<form asp-action="CreaAutolavaggio" method="post">
-    @Html.AntiForgeryToken()
-
-    <div class="form-group col-6">
-        <label asp-for="Autolavaggio.Nome" class="control-label fw-bold">NOME AUTOLAVAGGIO</label>
-        <input asp-for="Autolavaggio.Nome" class="form-control" />
-        <span asp-validation-for="Autolavaggio.Nome" class="text-danger"></span>
-    </div>
-
-    <div class="form-group col-6 my-3">
-        <label asp-for="Autolavaggio.Via" class="control-label fw-bold">VIA</label>
-        <input asp-for="Autolavaggio.Via" class="form-control" />
-        <span asp-validation-for="Autolavaggio.Via" class="text-danger"></span>
-    </div>
-
-    <div class="form-group col-6">
-        <label asp-for="Autolavaggio.Città" class="control-label fw-bold">CITTA'</label>
-        <input asp-for="Autolavaggio.Città" class="form-control" />
-        <span asp-validation-for="Autolavaggio.Città" class="text-danger"></span>
-    </div>
-
-    <div class="form-group col-6 my-3">
-        <label asp-for="Autolavaggio.CAP" class="control-label fw-bold">CAP</label>
-        <input asp-for="Autolavaggio.CAP" class="form-control" />
-        <span asp-validation-for="Autolavaggio.CAP" class="text-danger"></span>
-    </div>
-
-    <div class="form-group col-6">
-        <label asp-for="Autolavaggio.GoogleMapsUrl" class="control-label fw-bold">URL di Google Maps embed (facoltativo)</label>
-        <input asp-for="Autolavaggio.GoogleMapsUrl" class="form-control" type="url" id="GoogleMapsUrl" name="GoogleMapsUrl" value="@Model.Autolavaggio.GoogleMapsUrl" />
-        <span asp-validation-for="Autolavaggio.GoogleMapsUrl" class="text-danger"></span>
-    </div>
-
-    <div class="form-group col-6 my-3">
-        <label asp-for="Autolavaggio.Telefono" class="control-label fw-bold">NUMERO DI TELEFONO</label>
-        <input asp-for="Autolavaggio.Telefono" class="form-control" />
-        <span asp-validation-for="Autolavaggio.Telefono" class="text-danger"></span>
-    </div>
-
-    <div class="form-group col-6">
-        <label asp-for="Autolavaggio.TipoNome" class="control-label fw-bold">TIPO DI AUTOLAVAGGIO</label>
-        <select asp-for="Autolavaggio.TipoNome" class="form-control" asp-items="@(new SelectList(Model.Tipi, "Nome", "Nome"))">
-            <option value="">Seleziona un tipo</option>
-        </select>
-        <span asp-validation-for="Autolavaggio.TipoNome" class="text-danger"></span>
-    </div>
-
-
-    <div class="form-group col-6 my-3">
-        <label asp-for="Autolavaggio.Descrizione" class="control-label fw-bold">BREVE DESCRIZIONE </label>
-        <textarea asp-for="Autolavaggio.Descrizione" class="form-control"></textarea>
-        <span asp-validation-for="Autolavaggio.Descrizione" class="text-danger"></span>
-    </div>
-
-    <div class="form-group col-6">
-        <label asp-for="Autolavaggio.Immagine" class="control-label fw-bold">IMMAGINE</label>
-        <input asp-for="Autolavaggio.Immagine" class="form-control" />
-        <span asp-validation-for="Autolavaggio.Immagine" class="text-danger"></span>
-    </div>
-
-    <div class="form-group col-6 my-3">
-        <label asp-for="Autolavaggio.OrariDescrizione" class="control-label fw-bold">ORARI </label>
-        <textarea asp-for="Autolavaggio.OrariDescrizione" class="form-control"></textarea>
-        <span asp-validation-for="Autolavaggio.OrariDescrizione" class="text-danger"></span>
-    </div>
-
-    <div class="form-group col-6">
-        <label class="fw-bold">SERVIZI (Seleziona fino a 5 servizi)</label>
-
-        @for (int i = 0; i < 5; i++)
-        {
-            <div class="form-group">
-                <label for="SelectedServizi[@i]"></label>
-               <select id="SelectedServizi[@i]" name="SelectedServizi[@i]" class="form-control">
-                    <option value="">Seleziona un servizio</option>
-                    @foreach (var servizio in Model.Servizi)
-                    {
-                        <option value="@servizio.Id">@servizio.Nome</option>
-                    }
-                </select>
+<br />
+<div class="container bg-registerAuto ">
+    <div class="row">
+        <!-- Colonna a sinistra per la scritta -->
+        <div class="col-md-6 d-flex align-items-center">
+            <div class="text-center">
+                <h1 class="blue fw-bold my-3 ">REGISTRA NUOVO AUTOLAVAGGIO</h1>
+                <p class="fw-bold fs-4">Compila il modulo a destra per registrare un nuovo autolavaggio. Assicurati di fornire tutte le informazioni necessarie per aiutare i tuoi clienti a trovarti!</p>
             </div>
-        }
+        </div>
 
-        <span asp-validation-for="SelectedServizi" class="text-danger"></span>
+        <!-- Colonna a destra per il modulo -->
+        <div class="col-md-6 py-4">
+            <div class="bg-blue p-4 rounded">
+                <h2 class="text-white">Modulo di Registrazione</h2>
+                <form asp-action="CreaAutolavaggio" method="post">
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-group mt-4">
+                        <label asp-for="Autolavaggio.Nome" class="control-label fw-bold text-white">NOME AUTOLAVAGGIO</label>
+                        <input asp-for="Autolavaggio.Nome" class="form-control" />
+                        <span asp-validation-for="Autolavaggio.Nome" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group my-3">
+                        <label asp-for="Autolavaggio.Via" class="control-label fw-bold text-white">VIA</label>
+                        <input asp-for="Autolavaggio.Via" class="form-control" />
+                        <span asp-validation-for="Autolavaggio.Via" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Autolavaggio.Città" class="control-label fw-bold text-white">CITTA'</label>
+                        <input asp-for="Autolavaggio.Città" class="form-control" />
+                        <span asp-validation-for="Autolavaggio.Città" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group my-3">
+                        <label asp-for="Autolavaggio.CAP" class="control-label fw-bold text-white">CAP</label>
+                        <input asp-for="Autolavaggio.CAP" class="form-control" />
+                        <span asp-validation-for="Autolavaggio.CAP" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Autolavaggio.GoogleMapsUrl" class="control-label fw-bold text-white">URL di Google Maps embed (facoltativo)</label>
+                        <input asp-for="Autolavaggio.GoogleMapsUrl" class="form-control" type="url" id="GoogleMapsUrl" name="GoogleMapsUrl" value="@Model.Autolavaggio.GoogleMapsUrl" />
+                        <span asp-validation-for="Autolavaggio.GoogleMapsUrl" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group my-3">
+                        <label asp-for="Autolavaggio.Telefono" class="control-label fw-bold text-white">NUMERO DI TELEFONO</label>
+                        <input asp-for="Autolavaggio.Telefono" class="form-control" />
+                        <span asp-validation-for="Autolavaggio.Telefono" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Autolavaggio.TipoNome" class="control-label fw-bold text-white">TIPO DI AUTOLAVAGGIO</label>
+                        <select asp-for="Autolavaggio.TipoNome" class="form-control" asp-items="@(new SelectList(Model.Tipi, "Nome", "Nome"))">
+                            <option value="">Seleziona un tipo</option>
+                        </select>
+                        <span asp-validation-for="Autolavaggio.TipoNome" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group my-3">
+                        <label asp-for="Autolavaggio.Descrizione" class="control-label fw-bold text-white">BREVE DESCRIZIONE</label>
+                        <textarea asp-for="Autolavaggio.Descrizione" class="form-control"></textarea>
+                        <span asp-validation-for="Autolavaggio.Descrizione" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Autolavaggio.Immagine" class="control-label fw-bold text-white">IMMAGINE</label>
+                        <input asp-for="Autolavaggio.Immagine" class="form-control" />
+                        <span asp-validation-for="Autolavaggio.Immagine" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group my-3">
+                        <label asp-for="Autolavaggio.OrariDescrizione" class="control-label fw-bold text-white">ORARI</label>
+                        <textarea asp-for="Autolavaggio.OrariDescrizione" class="form-control"></textarea>
+                        <span asp-validation-for="Autolavaggio.OrariDescrizione" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="fw-bold text-white">SERVIZI (Seleziona fino a 5 servizi)</label>
+                        @for (int i = 0; i < 5; i++)
+                        {
+                            <div class="form-group">
+                                <label for="SelectedServizi[@i]"></label>
+                                <select id="SelectedServizi[@i]" name="SelectedServizi[@i]" class="form-control">
+                                    <option value="">Seleziona un servizio</option>
+                                    @foreach (var servizio in Model.Servizi)
+                                    {
+                                        <option value="@servizio.Id">@servizio.Nome</option>
+                                    }
+                                </select>
+                            </div>
+                        }
+                        <span asp-validation-for="SelectedServizi" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group text-center">
+                        <input type="submit" value="Salva" class="btn bg-secondary text-white mt-3" />
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
-
-    <div class="form-group">
-        <input type="submit" value="Salva" class="btn bg-blue text-white mt-3" />
-    </div>
-</form>
-
-
+</div>

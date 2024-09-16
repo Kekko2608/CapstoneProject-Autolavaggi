@@ -15,7 +15,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm bg-blue text-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm bg-blue text-white border-bottom box-shadow fixed-top ">
             <div class="container-fluid">
                 <img src="~/images/Autopulita.it.png" alt="Logo" class="d-inline-block align-text-top" id="logo">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -24,22 +24,22 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-white ms-3" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        <li class="nav-item ">
+                            <a class="nav-link text-white marginIndex ms-5" asp-area="" asp-controller="Home" asp-action="Index">HOME</a>
                         </li>
                        
                         <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Autolavaggio" asp-action="GetAllAutolavaggi">Cerca Autolavaggio</a>
+                            <a class="nav-link text-white" asp-area="" asp-controller="Autolavaggio" asp-action="GetAllAutolavaggi">CERCA AUTOLAVAGGIO</a>
                         </li>
                         @if (User.Identity.IsAuthenticated && !User.IsInRole("Cliente"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="Autolavaggio" asp-action="CreaAutolavaggio">Registra Autolavaggio</a>
+                                <a class="nav-link text-white" asp-area="" asp-controller="Autolavaggio" asp-action="CreaAutolavaggio">REGISTRA AUTOLAVAGGIO</a>
                             </li>
                             @if (!User.IsInRole("Amministratore"))
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link text-white" asp-controller="Autolavaggio" asp-action="DettagliAutolavaggioGestore">Profilo Autolavaggio</a>
+                                    <a class="nav-link text-white" asp-controller="Autolavaggio" asp-action="DettagliAutolavaggioGestore">PROFILO AUTOLAVAGGIO</a>
                                 </li>
                             }
                         }
@@ -48,7 +48,7 @@
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
-                                <a class="nav-link" asp-controller="Account" asp-action="Profilo"><i class="bi bi-person-circle text-white fs-4"></i></a>
+                                <a class="nav-link" asp-controller="Account" asp-action="Profilo"><i class="bi bi-person-circle text-white fs-3"></i></a>
                                 
                             </li>
                             <li class="nav-item">
@@ -69,7 +69,7 @@
             </div>
         </nav>
     </header>
-    <div class="container">
+    <div class="container" style="margin-top: 80px;">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
