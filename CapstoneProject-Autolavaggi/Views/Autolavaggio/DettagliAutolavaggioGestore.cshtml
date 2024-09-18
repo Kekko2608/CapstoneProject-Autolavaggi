@@ -22,12 +22,12 @@
                 <div class="col-md-6">
                     <img src="@autolavaggio.Immagine" alt="Immagine Autolavaggio" class="img-fluid rounded shadow-sm" />
                 </div>
-                <div class="col-md-6">
-                    <p class="my-5"><strong><i class="bi bi-geo-alt-fill blue me-1"></i> INDIRIZZO:</strong> @autolavaggio.Via, @autolavaggio.Città, @autolavaggio.CAP</p>
-                    <p class="my-5"><strong><i class="bi bi-telephone-fill blue me-1"></i> TELEFONO:</strong> @autolavaggio.Telefono</p>
-                    <p class="my-5"><strong><i class="bi bi-pen-fill blue me-1"></i> DESCRIZIONE:</strong> @autolavaggio.Descrizione</p>
-                    <p class="my-5"><strong><i class="bi bi-alarm-fill blue me-1"></i> ORARI:</strong> @autolavaggio.OrariDescrizione</p>
-                    <a asp-action="ModificaAutolavaggio" asp-route-id="@autolavaggio.Id" class="btn bg-blue text-white">Modifica</a>
+                <div class="col-md-6 bg-blue rounded-3">
+                    <p class="my-5 text-white"><strong><i class="bi bi-geo-alt-fill blue me-1 text-white"></i> INDIRIZZO:</strong> @autolavaggio.Via, @autolavaggio.Città, @autolavaggio.CAP</p>
+                    <p class="my-5 text-white"><strong><i class="bi bi-telephone-fill blue me-1 text-white"></i> TELEFONO:</strong> @autolavaggio.Telefono</p>
+                    <p class="my-5 text-white"><strong><i class="bi bi-pen-fill blue me-1 text-white"></i> DESCRIZIONE:</strong> @autolavaggio.Descrizione</p>
+                    <p class="my-5 text-white"><strong><i class="bi bi-alarm-fill blue me-1 text-white"></i> ORARI:</strong> @autolavaggio.OrariDescrizione</p>
+                    <a asp-action="ModificaAutolavaggio" asp-route-id="@autolavaggio.Id" class="btn bg-secondary text-white">Modifica</a>
                 </div>
             </div>
 
@@ -42,7 +42,7 @@
                     {
                         <div class="col-md-6 mb-4">
                             <div class="card border-secondary shadow">
-                                <div class="card-body">
+                                <div class="card-body bg-secondary bg-opacity-25">
                                     <!-- Stelle di valutazione -->
                                     <div class="rating">
                                         <input type="radio" id="star5_@recensione.Id" name="rating_@recensione.Id" value="5" disabled @(recensione.Voto == 5 ? "checked" : "") />
@@ -82,17 +82,20 @@
             <hr />
 
             <!-- Sezione Prenotazioni -->
-            <h4 class="mt-4 mb-4">Prenotazioni clienti</h4>
+            <h4 class="mt-4 mb-4 blue">PRENOTAZIONI CLIENTI</h4>
             @if (Model.Prenotazioni.Where(p => p.AutolavaggioId == autolavaggio.Id).Any())
             {
-                <div class="list-group">
+                <div class="row">
                     @foreach (var prenotazione in Model.Prenotazioni.Where(p => p.AutolavaggioId == autolavaggio.Id))
                     {
-                        <div class="list-group-item mb-2 border-light border border-2 border-dark col-6">
+                        <div class="me-3 mb-2 border border-2 border-dark col-5">
                             <p><strong><i class="bi bi-person-fill"></i> Utente:</strong> @prenotazione.User.Nome</p>
                             <p><strong>Data:</strong> @prenotazione.Data.ToString("dd/MM/yyyy")</p>
                             <p><strong>Servizio:</strong> @prenotazione.Servizio?.Nome</p>
                         </div>
+                        
+                           
+                        
                     }
                 </div>
             }
