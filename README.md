@@ -1,4 +1,4 @@
-🚗✨ Piattaforma Web per la Gestione e Prenotazione di Autolavaggi 🌍🧼
+# 🚗✨ Piattaforma Web per la Gestione e Prenotazione di Autolavaggi 🌍🧼
 
 Descrizione del Progetto 📜
 Essendo appassionato di auto e partecipando a raduni in tutta la Sardegna 🏞️🚘, mi capita spesso di cercare autolavaggi vicino alla zona in cui mi trovo, per poter arrivare al raduno con l'auto splendente 🌟.
