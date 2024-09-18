@@ -24,10 +24,14 @@ SQL Server: Per la gestione e memorizzazione dei dati relativi agli utenti, auto
 
 ## Funzionalità Principali 🚀
 
- Ricerca e Geolocalizzazione 🧭: Gli utenti possono trovare autolavaggi vicini tramite la loro posizione, visualizzando i risultati e relativa posizione in una mappa 🗺️.
- Filtraggio e Prenotazione 🔍🗓️: Possibilità di filtrare i risultati in base ai servizi offerti e prenotare online direttamente 📅.
- Gestione Autolavaggi 🏢: I proprietari possono creare un profilo per il loro autolavaggio, gestire i servizi offerti, visualizzare prenotazioni e monitorare le recensioni dei clienti ⭐.
- Recensioni e Valutazioni ⭐📝: Gli utenti possono lasciare recensioni, contribuendo alla classifica e alla visibilità degli autolavaggi.
+ ### Ricerca e Geolocalizzazione 🧭:
+ Gli utenti possono trovare autolavaggi vicini tramite la loro posizione, visualizzando i risultati e relativa posizione in una mappa 🗺️.
+ ### Filtraggio e Prenotazione 🔍🗓️: 
+ Possibilità di filtrare i risultati in base ai servizi offerti e prenotare online direttamente 📅.
+ ### Gestione Autolavaggi 🏢:
+ I proprietari possono creare un profilo per il loro autolavaggio, gestire i servizi offerti, visualizzare prenotazioni e monitorare le recensioni dei clienti ⭐.
+ ### Recensioni e Valutazioni ⭐📝: 
+ Gli utenti possono lasciare recensioni, contribuendo alla classifica e alla visibilità degli autolavaggi.
 
 ## Obiettivi del Progetto 🎯
 Creare una piattaforma intuitiva e facile da usare 🧑‍💻, che aiuti i clienti a trovare rapidamente i servizi di autolavaggio 🚗🧽.
