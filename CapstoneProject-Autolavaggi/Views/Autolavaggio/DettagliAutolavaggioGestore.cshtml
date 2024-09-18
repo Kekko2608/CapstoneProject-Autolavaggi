@@ -3,13 +3,13 @@
 @{
     ViewData["Title"] = "Dettagli Autolavaggi Gestore";
 }
-
-<div class="container">
+<body class="bg-autolGest">
+<div class="content container">
     <br />
 
     @if (Model.Autolavaggi.Count > 1)
     {
-        <h3 class="my-3 text-center blue fw-bold">I TUOI AUTOLAVAGGI</h3>
+        <h3 class="text-center blue fw-bold">I TUOI AUTOLAVAGGI</h3>
     }
 
     @foreach (var autolavaggio in Model.Autolavaggi)
@@ -93,9 +93,6 @@
                             <p><strong>Data:</strong> @prenotazione.Data.ToString("dd/MM/yyyy")</p>
                             <p><strong>Servizio:</strong> @prenotazione.Servizio?.Nome</p>
                         </div>
-                        
-                           
-                        
                     }
                 </div>
             }
@@ -108,3 +105,4 @@
         </div>
     }
 </div>
+</body>

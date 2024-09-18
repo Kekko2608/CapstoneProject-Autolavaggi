@@ -30,45 +30,42 @@ body {
 }
 
 
-
-
 /* Stile base delle stelle */
 .rating {
     direction: rtl; /* Per far partire l'orientamento da destra a sinistra */
-    font-size: 2rem; /* Dimensione delle stelle */
+    font-size: 2rem; 
     unicode-bidi: bidi-override; /* Per garantire che le stelle siano ordinate correttamente */
     color: #ddd; /* Colore delle stelle non selezionate */
 }
 
     .rating input[type="radio"] {
-        display: none; /* Nascondere i radio button */
+        display: none; 
     }
 
     .rating label {
-        color: #ddd; /* Colore delle stelle non selezionate */
-        cursor: pointer; /* Cambia il cursore su hover */
-        font-size: 2rem; /* Dimensione delle stelle */
+        color: #ddd; 
+        cursor: pointer; 
+        font-size: 2rem; 
     }
 
     .rating input:checked ~ label,
     .rating input:checked ~ label ~ label {
-        color: #ffcc00; /* Colore delle stelle selezionate */
+        color: #ffcc00; 
     }
 
     .rating input:hover ~ label,
     .rating input:hover ~ label ~ label {
-        color: #ffcc00; /* Colore delle stelle al passaggio del mouse */
+        color: #ffcc00; 
     }
 
     .rating label:before {
-        content: "\2605"; /* Simbolo della stella */
+        content: "\2605"; 
     }
 
     /* Per l'effetto di transizione */
     .rating label {
         transition: color 0.2s ease;
     }
-
 
 
 
@@ -81,26 +78,9 @@ body {
 }
 
 
-
 #logo {
     max-height: auto; 
     width: 8em;
-}
-
-
-.bg-registerAuto {
-    background-image: url('https://magazine.impactscool.com/wp-content/uploads/2019/05/Grafi-e-nodi-1.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-}
-
-.bg-allAutol {
-    background-image: url('https://www.oasidellavaggio.com/wp-content/uploads/2023/04/autolavaggio.jpeg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    height:30em;
 }
 
 .bg-schiuma {
@@ -111,4 +91,71 @@ body {
     font-family: "Lobster", sans-serif;
     font-weight: 400;
     font-style: normal;
+}
+
+
+.bg-profilo {
+    margin: 0;
+    padding: 0;
+    background-image: url('https://www.stile.it/wp-content/uploads/2018/02/iStock-175400096-1024x683.jpg'); /* URL dell'immagine di sfondo */
+    background-size: cover; /* Adatta l'immagine per coprire l'intera area */
+    background-position: center; /* Centra l'immagine */
+    background-attachment: fixed; /* Mantiene l'immagine fissa mentre si scorre */
+    background-repeat: no-repeat; /* Evita la ripetizione dell'immagine */
+}
+
+.bg-allAutol {
+    margin: 0;
+    padding: 0;
+    background-image: url('https://www.oasidellavaggio.com/wp-content/uploads/2023/04/autolavaggio.jpeg');
+    background-size: cover;
+    background-position: center; 
+    background-attachment: fixed; 
+    background-repeat: no-repeat; 
+}
+
+.bg-autolGest {
+    margin: 0;
+    padding: 0;
+    background-image: url('https://www.tuningblog.eu/wp-content/uploads/2023/06/Handwaesche-auto-waschen-schwamm-wasse.jpg'); 
+    background-size: cover; 
+    background-position: center; 
+    background-attachment: fixed; 
+    background-repeat: no-repeat; 
+}
+
+.bg-recensione {
+    margin: 0;
+    padding: 0;
+    background-image: url('https://cncmedia.it/wp-content/uploads/2021/06/LINGANNO-DELLE-RECENSIONI.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+}
+
+.bg-registerAuto {
+    margin: 0;
+    padding: 0;
+    background-image: url('https://magazine.impactscool.com/wp-content/uploads/2019/05/Grafi-e-nodi-1.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+}
+
+.bg-prenot {
+    margin: 0;
+    padding: 0;
+    background-image: url('https://images.squarespace-cdn.com/content/v1/5ee3453a95b9e83072ab9235/1631085682054-7IMKDSHZI2NQL6YPX09E/Federlavaggi+Federazione+autolavaggi+italia.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+}
+
+.content {
+    background: rgba(255, 255, 255, 0.9); /* Sfondo semi-trasparente per il contenuto */
+    padding: 20px; 
+    border-radius: 10px; 
 }

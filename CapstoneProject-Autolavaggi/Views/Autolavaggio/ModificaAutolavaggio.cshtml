@@ -4,9 +4,10 @@
     ViewData["Title"] = "Modifica Autolavaggio";
 }
 <br />
-<h2>Modifica Autolavaggio</h2>
+<body class="bg-profilo">
 
-<form asp-action="ModificaAutolavaggio" method="post">
+<form asp-action="ModificaAutolavaggio" method="post" class="content px-5">
+    <h2 class="fw-bold my-4">MODIFICA AUTOLAVAGGIO</h2>
     @Html.AntiForgeryToken()
     <input type="hidden" asp-for="Autolavaggio.Id" />
     <div class="form-group col-6 my-3">
@@ -86,3 +87,4 @@
         <button type="submit" class="btn bg-blue text-white">Salva Modifiche</button>
     </div>
 </form>
+</body>

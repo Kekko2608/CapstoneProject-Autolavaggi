@@ -4,9 +4,10 @@
     ViewData["Title"] = "Recensioni per " + Model.Autolavaggio.Nome;
 }
 <br />
-<h1>@Model.Autolavaggio.Nome</h1>
+<body class="bg-recensione">
+<h1 class="text-white">@Model.Autolavaggio.Nome</h1>
 
-<div class="container mt-5">
+<div class="container content mt-5">
     <div class="row">
         <!-- Sezione Recensioni -->
         <div class="col-md-6">
@@ -105,7 +106,7 @@
         </div>
     </div>
 </div>
-
+</body>
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");

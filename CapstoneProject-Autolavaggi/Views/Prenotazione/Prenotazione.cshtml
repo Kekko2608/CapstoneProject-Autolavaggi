@@ -4,9 +4,11 @@
     ViewData["Title"] = "Prenotazione Servizio";
 }
 <br />
-<h2 class="mb-4">Prenota un Servizio presso @Model.Autolavaggio.Nome</h2>
+<body class="bg-prenot">
 
-<div class="container">
+
+<div class="container content">
+        <h2 class="mb-4">Prenota un Servizio presso @Model.Autolavaggio.Nome</h2>
     <form id="prenotazioneForm" asp-action="ConfermaPrenotazione" method="post">
         @Html.AntiForgeryToken()
         <input type="hidden" asp-for="NuovaPrenotazione.AutolavaggioId" />
@@ -53,6 +55,7 @@
         </div>
     </div>
 </div>
+</body>
 
 <script>
     $(document).ready(function () {

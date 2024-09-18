@@ -3,12 +3,12 @@
 @{
     ViewData["Title"] = "Tutti gli Autolavaggi";
 }
-
-<div class="container my-5">
+<body class="bg-allAutol">
+<div class="content container my-5">
 
     <form method="get" action="@Url.Action("GetAllAutolavaggi")" class="mb-5">
         <div>
-            <div class="bg-allAutol d-flex justify-content-center align-items-center min-vh-80">
+            <div class=" d-flex justify-content-center align-items-center min-vh-80">
                 <div class="col-md-8 col-lg-10 my-4 border border-3 border-primary rounded p-4 bg-white">
                     <label for="CittàFiltro" class="form-label fs-1 fw-bold blue font">Trova l'autolavaggio più vicino a te!!</label>
                     <p class="blue fw-bold">Inserisci la tua città:</p>
@@ -16,9 +16,8 @@
                 </div>
             </div>
 
-            
             <h4 class="mt-4 fw-bold blue">ALTRI FILTRI:</h4>
-            <div class="mb-4 col-6" >
+            <div class="mb-4 col-6 ms-5">
                 <label for="TipoFiltro" class="form-label fs-5 mt-2 fw-bold">TIPO DI AUTOLAVAGGIO</label>
                 <select id="TipoFiltro" name="tipoFiltro" class="form-select">
                     <option value="">Seleziona tipo di autolavaggio</option>
@@ -30,8 +29,8 @@
             </div>
 
             <div class="mb-4 col-6">
-                <label for="ServiziFiltro" class="form-label fs-5 fw-bold">SERVIZI OFFERTI</label>
-                <select id="ServiziFiltro" name="serviziFiltro" class="form-select" multiple>
+                <label for="ServiziFiltro" class="form-label fs-5 ms-5 fw-bold">SERVIZI OFFERTI</label>
+                <select id="ServiziFiltro" name="serviziFiltro" class="form-select ms-5" multiple>
                     @foreach (var servizio in Model.Servizi)
                     {
                         <option value="@servizio.Id">@servizio.Nome</option>
@@ -39,10 +38,11 @@
                 </select>
             </div>
         </div>
-        <div><button type="submit" class="btn bg-blue text-white">Filtra risultati</button></div>
-        
+        <div><button type="submit" class="btn bg-blue text-white ms-5">Filtra risultati</button></div>
     </form>
+
     <hr />
+
     <h2>Risultati della ricerca :</h2>
     <div class="row">
         @if (Model.Autolavaggi != null && Model.Autolavaggi.Any())
@@ -72,13 +72,11 @@
                                     <input type="hidden" name="id" value="@autolavaggio.Id" />
                                     <button type="submit" class="btn btn-danger mt-3">Elimina</button>
                                 </form>
-
                             }
                         </div>
                     </div>
                 </div>
             }
-
         }
         else
         {
@@ -90,4 +88,4 @@
         }
     </div>
 </div>
-
+</body>

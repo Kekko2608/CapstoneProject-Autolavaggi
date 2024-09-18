@@ -3,8 +3,9 @@
 @{
     ViewData["Title"] = "Dettagli Autolavaggio";
 }
+<body class="bg-autolGest">
 <br />
-<div class="container mb-5 bg-secondary bg-opacity-25 pb-5 pt-3 px-5">
+<div class="container content mb-5 pb-5 pt-3 px-5">
     <h1 class="text-center fw-bold mb-4">@Model.Autolavaggio.Nome</h1>
 
     @if (!string.IsNullOrEmpty(Model.Autolavaggio.GoogleMapsUrl))
@@ -60,4 +61,4 @@
         </div>
     </div>
 </div>
-
+</body>
