@@ -2,15 +2,29 @@
     ViewData["Title"] = "Home Page";
 }
 
-<section class="text-center ">
-    <div class="container d-flex flex-column justify-content-center align-items-center vh-100" id="intro">
+<section class="position-relative">
+    <!-- Carosello -->
+    <div id="carouselExample" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="https://www.oasidellavaggio.com/wp-content/uploads/2023/04/autolavaggio.jpeg" class="d-block w-100 h-75" alt="Immagine 1">
+            </div>
+            <div class="carousel-item">
+                <img src="https://www.solodettagli.it/cdn/shop/articles/LAVAGGIO_AUTO.jpg?v=1715114828&width=1100" class="d-block w-100 h-75" alt="Immagine 2">
+            </div>
+            <div class="carousel-item">
+                <img src="https://images.squarespace-cdn.com/content/v1/5ee3453a95b9e83072ab9235/1631085682054-7IMKDSHZI2NQL6YPX09E/Federlavaggi+Federazione+autolavaggi+italia.png" class="d-block w-100 h-75" alt="Immagine 3">
+            </div>
+        </div>
+    </div>
+
+    <!-- Testo sovrapposto al carosello -->
+    <div class="container d-flex flex-column justify-content-center align-items-center vh-100 position-absolute top-0 start-0 w-100 h-100">
         <h1 class="font display-1 text-center text-black"><strong class="blue">AutoPulita.it</strong></h1>
         <p class="lead text-center fs-2 mt-5 fw-bold">La tua guida definitiva per trovare il miglior autolavaggio nella tua zona.</p>
         <a href="@Url.Action("GetAllAutolavaggi", "Autolavaggio")" class="btn bg-blue text-white btn-lg mt-3">Cerca autolavaggio</a>
     </div>
-
 </section>
-
 
 <section class="mt-5">
     <div class="container">

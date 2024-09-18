@@ -87,13 +87,6 @@ body {
     width: 8em;
 }
 
-#intro {
-    background-image: url('https://www.confesercenti.it/wp-content/uploads/2021/10/lavaggio-auto.jpg');
-    background-size: cover; 
-    background-position: center; 
-    background-repeat: no-repeat; 
-    
-}
 
 .bg-registerAuto {
     background-image: url('https://magazine.impactscool.com/wp-content/uploads/2019/05/Grafi-e-nodi-1.png');
