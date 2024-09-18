@@ -17,10 +17,10 @@
                     @foreach (var recensione in Model.Recensioni)
                     {
                         <div class="col-md-12 mb-4">
-                            <div class="card border-4 shadow-sm">
+                            <div class="card border-4 shadow-sm bg-secondary bg-opacity-25">
                                 <div class="card-body">
                                     <!-- Stelle di valutazione -->
-                                    <div class="rating mb-3">
+                                    <div class="rating">
                                         <input type="radio" id="star5_@recensione.Id" name="rating_@recensione.Id" value="5" disabled @(recensione.Voto == 5 ? "checked" : "") />
                                         <label for="star5_@recensione.Id" class="fa fa-star"></label>
 
@@ -43,8 +43,8 @@
                                     <h6 class="card-subtitle text-muted">Scritta da: @recensione.User?.Nome</h6>
 
                                     <!-- Commento -->
-                                    <p class="card-text my-5">@recensione.Commento</p>
-                                    <footer class="blockquote-footer text-muted ">Data: @recensione.Data.ToString("dd/MM/yyyy")</footer>
+                                    <p class="card-text my-3">@recensione.Commento</p>
+                                    <footer class="blockquote-footer text-muted mt-1">Data: @recensione.Data.ToString("dd/MM/yyyy")</footer>
                                 </div>
                             </div>
                         </div>
@@ -72,7 +72,7 @@
 
                     <div class="form-group mb-3">
                         <label class="form-label fw-bold">Voto</label>
-                        <div class="rating mb-3">
+                        <div class="rating me-5">
                             <input type="radio" id="star5" name="NuovaRecensione.Voto" value="5" />
                             <label for="star5" class="fa fa-star"></label>
 

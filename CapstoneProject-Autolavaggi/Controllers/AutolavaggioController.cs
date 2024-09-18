@@ -180,9 +180,11 @@ namespace CapstoneProject_Autolavaggi.Controllers
                     .Where(a => a.OwnerId == user.Id)
                     .ToListAsync(),
                 Recensioni = await _ctx.Recensioni
+                    .Include(r => r.User)
                     .Where(r => autolavaggi.Select(a => a.Id).Contains(r.AutolavaggioId))
                     .ToListAsync(),
                 Prenotazioni = await _ctx.Prenotazioni
+                    .Include(p => p.User)
                     .Where(p => autolavaggi.Select(a => a.Id).Contains(p.AutolavaggioId))
                     .ToListAsync()
             };
