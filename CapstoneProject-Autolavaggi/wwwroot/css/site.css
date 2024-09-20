@@ -158,3 +158,17 @@ body {
     padding: 20px; 
     border-radius: 10px; 
 }
+
+.custom-card-hover {
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transizioni fluide */
+}
+
+.custom-card-hover:hover {
+        transform: translateY(-10px) scale(1.05); /* Solleva la card */
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Aumenta l'ombra */
+}
+
+.title-with-shadow {
+    font-size: 8rem; /* Dimensione del testo */
+    text-shadow: 3px 3px 0px white; /* Offset dell'ombra bianca */
+}
