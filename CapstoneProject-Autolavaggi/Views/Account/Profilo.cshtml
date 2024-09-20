@@ -47,21 +47,42 @@
             @foreach (var recensione in Model.Recensioni)
             {
                 <li class="list-group-item my-3 border border-2">
-                    <div>
-                        <strong>@recensione.Titolo</strong><br />
-                        Commento : @recensione.Commento<br />
-                        Voto: @recensione.Voto <i class="bi bi-star-fill"></i><br />
+                        <div class="card p-3 mb-3 shadow-sm">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <h5 class="fw-bold mb-0">@recensione.Titolo</h5>
+                                <span class="text-muted">@recensione.Data.ToString("dd/MM/yyyy")</span>
+                            </div>
 
-                        @if (recensione.Autolavaggio != null)
-                        {
-                            <strong>Autolavaggio: @recensione.Autolavaggio.Nome</strong>
-                        }
-                        else
-                        {
-                            <p>Autolavaggio non disponibile</p>
-                        }<br />
-                        Data: @recensione.Data.ToString("dd/MM/yyyy")
-                    </div>
+                            <div class="mb-2">
+                                <p class="mb-1">
+                                    <strong>Commento:</strong><br />
+                                    @recensione.Commento
+                                </p>
+                            </div>
+
+                            <div class="d-flex align-items-center mb-2">
+                                <strong>Voto:</strong>
+                                <span class="ms-2">
+                                    @for (int i = 1; i <= recensione.Voto; i++)
+                                    {
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                    }
+                                    @for (int i = recensione.Voto + 1; i <= 5; i++)
+                                    {
+                                        <i class="bi bi-star text-muted"></i>
+                                    }
+                                </span>
+                            </div>
+
+                            @if (recensione.Autolavaggio != null)
+                            {
+                                <p class="mb-0"><strong>Autolavaggio:</strong> @recensione.Autolavaggio.Nome</p>
+                            }
+                            else
+                            {
+                                <p class="text-muted mb-0">Autolavaggio non disponibile</p>
+                            }
+                        </div>
 
                     <!-- Modulo per eliminare la recensione -->
                     <form asp-controller="Recensione" asp-action="EliminaRecensione" method="post" class="d-inline">
