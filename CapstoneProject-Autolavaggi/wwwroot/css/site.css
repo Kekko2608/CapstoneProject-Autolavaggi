@@ -32,10 +32,10 @@ body {
 
 /* Stile base delle stelle */
 .rating {
-    direction: rtl; /* Per far partire l'orientamento da destra a sinistra */
+    direction: rtl; 
     font-size: 2rem; 
     unicode-bidi: bidi-override; /* Per garantire che le stelle siano ordinate correttamente */
-    color: #ddd; /* Colore delle stelle non selezionate */
+    color: #ddd; 
 }
 
     .rating input[type="radio"] {
@@ -62,7 +62,6 @@ body {
         content: "\2605"; 
     }
 
-    /* Per l'effetto di transizione */
     .rating label {
         transition: color 0.2s ease;
     }
@@ -97,11 +96,11 @@ body {
 .bg-profilo {
     margin: 0;
     padding: 0;
-    background-image: url('https://www.stile.it/wp-content/uploads/2018/02/iStock-175400096-1024x683.jpg'); /* URL dell'immagine di sfondo */
-    background-size: cover; /* Adatta l'immagine per coprire l'intera area */
-    background-position: center; /* Centra l'immagine */
-    background-attachment: fixed; /* Mantiene l'immagine fissa mentre si scorre */
-    background-repeat: no-repeat; /* Evita la ripetizione dell'immagine */
+    background-image: url('https://www.stile.it/wp-content/uploads/2018/02/iStock-175400096-1024x683.jpg'); 
+    background-size: cover; 
+    background-position: center; 
+    background-attachment: fixed;
+    background-repeat: no-repeat; 
 }
 
 .bg-allAutol {
