@@ -88,7 +88,7 @@
                 <div class="row">
                     @foreach (var prenotazione in Model.Prenotazioni.Where(p => p.AutolavaggioId == autolavaggio.Id))
                     {
-                        <div class="me-3 mb-2 border border-2 border-dark col-5">
+                        <div class="mx-3 mb-2 py-1 border border-2 border-dark col-5">
                             <p><strong><i class="bi bi-person-fill"></i> Utente:</strong> @prenotazione.User.Nome</p>
                             <p><strong>Data:</strong> @prenotazione.Data.ToString("dd/MM/yyyy")</p>
                             <p><strong>Servizio:</strong> @prenotazione.Servizio?.Nome</p>
