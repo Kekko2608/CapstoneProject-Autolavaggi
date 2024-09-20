@@ -154,21 +154,21 @@ body {
 }
 
 .content {
-    background: rgba(255, 255, 255, 0.9); /* Sfondo semi-trasparente per il contenuto */
+    background: rgba(255, 255, 255, 0.9); 
     padding: 20px; 
     border-radius: 10px; 
 }
 
 .custom-card-hover {
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transizioni fluide */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .custom-card-hover:hover {
-        transform: translateY(-10px) scale(1.05); /* Solleva la card */
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Aumenta l'ombra */
+        transform: translateY(-10px) scale(1.05); 
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
 }
 
 .title-with-shadow {
-    font-size: 8rem; /* Dimensione del testo */
-    text-shadow: 3px 3px 0px white; /* Offset dell'ombra bianca */
+    font-size: 8rem; 
+    text-shadow: 3px 3px 0px white; 
 }
